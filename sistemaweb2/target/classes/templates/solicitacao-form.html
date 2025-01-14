@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Solicitação</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Nova Solicitação de Orçamento</h1>
+        <form th:action="@{/solicitacoes/save}" th:object="${solicitacao}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+            
+            <!-- Cliente Dropdown (Single Select) -->
+            <div class="mb-3">
+                <label for="cliente">Cliente</label>
+                <select name="clienteId" class="form-select" required>
+                    <option th:each="cliente : ${clientes}" th:if="${cliente.ativo}" th:value="${cliente.id}" th:text="${cliente.nome}"></option>
+                </select>
+            </div>
+
+            <!-- Equipamento Dropdown (Multi Select) -->
+            <div class="mb-3">
+                <label for="equipamentos">Equipamentos</label>
+                <select name="equipamentoIds" class="form-select" multiple required>
+                    <option th:each="equipamento : ${equipamentos}" th:value="${equipamento.id}" th:text="${equipamento.nome}"></option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="descricao">Descrição</label>
+                <textarea th:field="*{descricao}" class="form-control" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a class="btn btn-secondary" th:href="@{/solicitacoes}">Cancelar</a>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

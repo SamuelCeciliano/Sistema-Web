@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criar Serviço</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Criar Serviço</h1>
+        <form th:action="@{/servicos/save}" th:object="${servico}" method="post">
+			
+			<input type="hidden" th:field="*{id}"/>
+			
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" th:field="*{nome}" class="form-control" name="nome" placeholder="Nome do Serviço" required>
+            </div>
+			<div class="mb-3">
+				<label for="materiais" class="form-label">Materiais Utilizados</label>
+			    <select id="materiais" name="materialIds" class="form-select" multiple>
+			    	<option th:each="material : ${materiais}" th:value="${material.id}" th:text="${material.nome}"></option>
+			    </select>
+			    <small class="form-text text-muted">Segure CTRL (ou CMD no Mac) para selecionar múltiplos materiais.</small>
+			</div>
+            <button type="submit" class="btn btn-primary">Salvar Serviço</button>
+			<a class="btn btn-secondary" th:href="@{/servicos}">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

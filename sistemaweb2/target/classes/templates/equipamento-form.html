@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Equipamento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Cadastro de Novo Equipamento</h2>
+    <form th:action="@{/equipamentos/save}" th:object="${equipamento}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="row">
+            <!-- Nome do Equipamento -->
+            <div class="col-md-6 mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" th:field="*{nome}" class="form-control" placeholder="Nome do equipamento" required/>
+            </div>
+
+            <!-- Modelo do Equipamento -->
+            <div class="col-md-6 mb-3">
+                <label for="modelo" class="form-label">Modelo</label>
+                <input type="text" id="modelo" th:field="*{modelo}" class="form-control" placeholder="Modelo do equipamento" required/>
+            </div>
+
+            <!-- Marca do Equipamento -->
+            <div class="col-md-6 mb-3">
+                <label for="marca" class="form-label">Marca</label>
+                <input type="text" id="marca" th:field="*{marca}" class="form-control" placeholder="Marca do equipamento" required/>
+            </div>
+        </div>
+
+        <!-- Serviços Realizados -->
+        <div class="mb-3">
+            <label for="servicos" class="form-label">Serviços Realizados</label>
+            <select id="servicos" name="servicoIds" class="form-select" multiple>
+                <option th:each="servico : ${servicos}" th:value="${servico.id}" th:text="${servico.nome}"></option>
+            </select>
+            <small class="form-text text-muted">Segure CTRL (ou CMD no Mac) para selecionar múltiplos serviços.</small>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a class="btn btn-secondary" th:href="@{/equipamentos}">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
