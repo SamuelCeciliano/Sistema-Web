@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Equipamentos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">EQUIPAMENTOS</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Serviços</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="equipamento : ${equipamentos}">
+                <td th:text="${equipamento.id}"></td>
+                <td th:text="${equipamento.nome}"></td>
+                <td th:text="${equipamento.modelo}"></td>
+                <td th:text="${equipamento.marca}"></td>
+				<td>
+				    <ul>
+				        <li th:each="servico : ${equipamento.servicos}" th:text="${servico.nome}"></li>
+				    </ul>
+				</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" th:href="@{/equipamentos/edit/{id}(id=${equipamento.id})}">Editar</a>
+                    <a class="btn btn-danger btn-sm" th:href="@{/equipamentos/delete/{id}(id=${equipamento.id})}">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-success" th:href="@{/equipamentos/new}">Novo Equipamento</a>
+    <a href="/" class="btn btn-secondary">Voltar</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

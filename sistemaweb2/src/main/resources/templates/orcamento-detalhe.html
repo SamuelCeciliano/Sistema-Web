@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Orçamento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Detalhes do Orçamento</h2>
+        <div>
+            <p><strong>ID:</strong> <span th:text="${orcamento.id}"></span></p>
+            <p><strong>Cliente:</strong> <span th:text="${orcamento.cliente.nome}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${orcamento.status}"></span></p>
+            <p><strong>Data de Criação:</strong> <span th:text="${orcamento.dataCriacao}"></span></p>
+            <p><strong>Valor Total:</strong> <span th:text="${orcamento.valorTotal}"></span></p>
+        </div>
+
+        <h4>Serviços</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Serviço</th>
+                    <th>Horas</th>
+                    <th>Preço Unitário</th>
+                    <th>Materiais</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="servicoOrcamento : ${orcamento.servicos}">
+                    <td th:text="${servicoOrcamento.servico.nome}"></td>
+                    <td th:text="${servicoOrcamento.quantidadeHoras}"></td>
+                    <td th:text="${servicoOrcamento.precoUnitario}"></td>
+                    <td>
+                        <ul>
+                            <li th:each="material : ${servicoOrcamento.materiais}" th:text="${material.nome}"></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/orcamentos" class="btn btn-primary">Voltar</a>
+    </div>
+</body>
+</html>
