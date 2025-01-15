@@ -51,7 +51,9 @@
             <div class="col-md-4 mb-3">
                 <label for="cep" class="form-label">CEP</label>
                 <input type="text" id="cep" th:field="*{cep}" class="form-control" placeholder="CEP" required />
+                <div id="cepError" class="invalid-feedback"></div>
             </div>
+            
 
             <div class="col-md-4 mb-3">
                 <label for="uf" class="form-label">UF</label>
@@ -105,6 +107,49 @@
     </form>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js">
+</script>
+<script>
+    document.getElementById("cep").addEventListener("blur", function() {
+        const cep = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+        const cepError = document.getElementById("cepError"); // Seleciona o elemento de erro
+
+        // Remove mensagens e classes anteriores
+        cepError.textContent = "";
+        this.classList.remove("is-invalid");
+        this.classList.remove("is-valid");
+
+        if (cep.length === 8) { // Verifica se o CEP possui 8 caracteres
+            fetch(`/clientes/cep?cep=${cep}`) // Faz a chamada ao backend
+                .then(response => response.json())
+                .then(data => {
+                    if (data && !data.erro) { // Se os dados do CEP forem válidos
+                        // Preenche os campos com os dados do endereço
+                        document.getElementById("uf").value = data.uf || "";
+                        document.getElementById("cidade").value = data.localidade || "";
+                        document.getElementById("bairro").value = data.bairro || "";
+                        document.getElementById("endereco").value = data.logradouro || "";
+
+                        // Adiciona classe de sucesso
+                        this.classList.add("is-valid");
+                    } else {
+                        // Exibe mensagem de erro para CEP não encontrado
+                        cepError.textContent = "CEP não encontrado. Verifique e tente novamente.";
+                        this.classList.add("is-invalid");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar o CEP:", error);
+                    // Exibe mensagem de erro genérica
+                    cepError.textContent = "Erro ao buscar o endereço. Tente novamente.";
+                    this.classList.add("is-invalid");
+                });
+        } else {
+            // Exibe mensagem de erro para CEP inválido
+            cepError.textContent = "Por favor, insira um CEP válido com 8 dígitos.";
+            this.classList.add("is-invalid");
+        }
+    });
+</script>
 </body>
 </html>
