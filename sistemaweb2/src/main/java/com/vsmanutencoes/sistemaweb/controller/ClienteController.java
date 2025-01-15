@@ -34,7 +34,7 @@ public class ClienteController {
         return "cliente-form";
     }
 
-    // Salvar novo cliente ou editar cliente existente ssss
+    // Salvar novo cliente ou editar cliente existente
     @PostMapping("/save")
     public String salvarCliente(@Valid Cliente cliente) {
         clienteService.salvarCliente(cliente);
