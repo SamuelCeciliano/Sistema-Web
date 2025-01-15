@@ -2,6 +2,8 @@ package com.vsmanutencoes.sistemaweb.controller;
 
 import com.vsmanutencoes.sistemaweb.models.Cliente;
 import com.vsmanutencoes.sistemaweb.service.ClienteService;
+import com.vsmanutencoes.sistemaweb.service.CepService;
+import com.vsmanutencoes.sistemaweb.models.Endereco;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -19,6 +23,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private CepService cepService;  // Serviço de consulta de CEP
     
     // Listar todos os clientes
     @GetMapping
@@ -54,5 +61,12 @@ public class ClienteController {
     public String excluirCliente(@PathVariable("id") Long id) {
         clienteService.inativarCliente(id);
         return "redirect:/clientes";
+    }
+
+    // Método para buscar endereço via CEP
+    @GetMapping("/cep")
+    @ResponseBody
+    public Endereco buscarEnderecoPorCep(@RequestParam String cep) {
+        return cepService.buscarEnderecoPorCep(cep); // Chama o serviço que retorna o endereço
     }
 }
