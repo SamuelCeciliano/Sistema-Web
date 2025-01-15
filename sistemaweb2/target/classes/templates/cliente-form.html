@@ -1,111 +1,122 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Novo Cliente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
+
 <body>
-<div class="container mt-5">
-    <h2 class="mb-4">Cadastro de Novo Cliente</h2>
-    <form th:action="@{/clientes/save}" th:object="${cliente}" method="post">
+    <div class="container mt-5">
+        <h2 class="mb-4">Cadastro de Novo Cliente</h2>
+        <form th:action="@{/clientes/save}" th:object="${cliente}" method="post">
 
-        <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{id}" />
 
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" id="nome" th:field="*{nome}" class="form-control" placeholder="Nome do cliente" required/>
-            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" id="nome" th:field="*{nome}" class="form-control" placeholder="Nome do cliente"
+                        required />
+                </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="cnpjCpf" class="form-label">CNPJ/CPF</label>
-                <input type="text" id="cnpjCpf" th:field="*{cnpjCpf}" class="form-control" placeholder="CNPJ/CPF" required />
-            </div>
+                <div class="col-md-6 mb-3">
+                    <label for="cnpjCpf" class="form-label">CNPJ/CPF</label>
+                    <input type="text" id="cnpjCpf" th:field="*{cnpjCpf}" class="form-control" placeholder="CNPJ/CPF" required maxlength="14" />
+                    <div id="cnpjCpfError" class="invalid-feedback"></div> <!-- Mensagem de erro -->
+                </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Email" />
-            </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Email" />
+                </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="empresa" class="form-label">Empresa</label>
-                <input type="text" id="empresa" th:field="*{empresa}" class="form-control" placeholder="Nome da empresa" required />
-            </div>
+                <div class="col-md-6 mb-3">
+                    <label for="empresa" class="form-label">Empresa</label>
+                    <input type="text" id="empresa" th:field="*{empresa}" class="form-control"
+                        placeholder="Nome da empresa" required />
+                </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="telefone" class="form-label">Telefone</label>
-                <input type="text" id="telefone" th:field="*{telefone}" class="form-control" placeholder="Telefone para contato" required />
-            </div>
+                <div class="col-md-6 mb-3">
+                    <label for="telefone" class="form-label">Telefone</label>
+                    <input type="text" id="telefone" th:field="*{telefone}" class="form-control"
+                        placeholder="Telefone para contato" required />
+                </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="emailNf" class="form-label">Email para NF</label>
-                <input type="email" id="emailNf" th:field="*{emailNf}" class="form-control" placeholder="Email para NF" required />
-            </div>
+                <div class="col-md-6 mb-3">
+                    <label for="emailNf" class="form-label">Email para NF</label>
+                    <input type="email" id="emailNf" th:field="*{emailNf}" class="form-control"
+                        placeholder="Email para NF" required />
+                </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="site" class="form-label">Site</label>
-                <input type="url" id="site" th:field="*{site}" class="form-control" placeholder="Site" />
-            </div>
+                <div class="col-md-6 mb-3">
+                    <label for="site" class="form-label">Site</label>
+                    <input type="url" id="site" th:field="*{site}" class="form-control" placeholder="Site" />
+                </div>
 
-            <div class="col-md-4 mb-3">
-                <label for="cep" class="form-label">CEP</label>
-                <input type="text" id="cep" th:field="*{cep}" class="form-control" placeholder="CEP" required />
-                <div id="cepError" class="invalid-feedback"></div>
+                <div class="col-md-4 mb-3">
+                    <label for="cep" class="form-label">CEP</label>
+                    <input type="text" id="cep" th:field="*{cep}" class="form-control" placeholder="CEP" required />
+                    <div id="cepError" class="invalid-feedback"></div>
             </div>
             
 
-            <div class="col-md-4 mb-3">
-                <label for="uf" class="form-label">UF</label>
-                <input type="text" id="uf" th:field="*{uf}" class="form-control" placeholder="UF" required />
-            </div>
+                <div class="col-md-4 mb-3">
+                    <label for="uf" class="form-label">UF</label>
+                    <input type="text" id="uf" th:field="*{uf}" class="form-control" placeholder="UF" required />
+                </div>
 
-            <div class="col-md-4 mb-3">
-                <label for="cidade" class="form-label">Cidade</label>
-                <input type="text" id="cidade" th:field="*{cidade}" class="form-control" placeholder="Cidade" required />
+                <div class="col-md-4 mb-3">
+                    <label for="cidade" class="form-label">Cidade</label>
+                    <input type="text" id="cidade" th:field="*{cidade}" class="form-control" placeholder="Cidade"
+                        required />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="endereco" class="form-label">Endereço</label>
+                    <input type="text" id="endereco" th:field="*{endereco}" class="form-control" placeholder="Endereço"
+                        required />
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="numero" class="form-label">Número</label>
+                    <input type="text" id="numero" th:field="*{numero}" class="form-control" placeholder="Número"
+                        required />
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="complemento" class="form-label">Complemento</label>
+                    <input type="text" id="complemento" th:field="*{complemento}" class="form-control"
+                        placeholder="Complemento" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="bairro" class="form-label">Bairro</label>
+                    <input type="text" id="bairro" th:field="*{bairro}" class="form-control" placeholder="Bairro" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="pais" class="form-label">País</label>
+                    <input type="text" id="pais" th:field="*{pais}" class="form-control" placeholder="País" required />
+                </div>
             </div>
 
             <div class="col-md-6 mb-3">
-                <label for="endereco" class="form-label">Endereço</label>
-                <input type="text" id="endereco" th:field="*{endereco}" class="form-control" placeholder="Endereço" required />
+                <label class="form-label">Status</label>
+                <div class="form-check">
+                    <input type="checkbox" id="status" th:field="*{ativo}" class="form-check-input" />
+                    <label for="status" class="form-check-label">Ativo</label>
+                </div>
             </div>
 
-            <div class="col-md-3 mb-3">
-                <label for="numero" class="form-label">Número</label>
-                <input type="text" id="numero" th:field="*{numero}" class="form-control" placeholder="Número" required />
+            <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a class="btn btn-secondary" th:href="@{/clientes}">Cancelar</a>
             </div>
 
-            <div class="col-md-3 mb-3">
-                <label for="complemento" class="form-label">Complemento</label>
-                <input type="text" id="complemento" th:field="*{complemento}" class="form-control" placeholder="Complemento" />
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label for="bairro" class="form-label">Bairro</label>
-                <input type="text" id="bairro" th:field="*{bairro}" class="form-control" placeholder="Bairro" />
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label for="pais" class="form-label">País</label>
-                <input type="text" id="pais" th:field="*{pais}" class="form-control" placeholder="País" required />
-            </div>
-        </div>
-		
-		<div class="col-md-6 mb-3">
-			<label class="form-label">Status</label>
-		    <div class="form-check">
-		        <input type="checkbox" id="status" th:field="*{ativo}" class="form-check-input"/>
-		    	<label for="status" class="form-check-label">Ativo</label>
-		    </div>
-		</div>
-
-        <div class="col-12 mt-4">
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a class="btn btn-secondary" th:href="@{/clientes}">Cancelar</a>
-        </div>
-
-    </form>
-</div>
+        </form>
+    </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js">
 </script>
@@ -150,6 +161,103 @@
             this.classList.add("is-invalid");
         }
     });
-</script>
+    
+        // Validação de CPF ou CNPJ
+    document.getElementById("cnpjCpf").addEventListener("blur", function () {
+        const cnpjCpf = this.value.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+        const errorDiv = document.getElementById("cnpjCpfError");
+
+        // Remove mensagens e classes anteriores
+        errorDiv.textContent = "";
+        this.classList.remove("is-invalid");
+        this.classList.remove("is-valid");
+
+        // Valida CPF
+        if (cnpjCpf.length === 11) {
+            if (validarCPF(cnpjCpf)) {
+                this.classList.add("is-valid"); // Marca o campo como válido
+            } else {
+                errorDiv.textContent = "CPF inválido!";
+                this.classList.add("is-invalid"); // Marca o campo como inválido
+            }
+        }
+        // Valida CNPJ
+        else if (cnpjCpf.length === 14) {
+            if (validarCNPJ(cnpjCpf)) {
+                this.classList.add("is-valid"); // Marca o campo como válido
+            } else {
+                errorDiv.textContent = "CNPJ inválido!";
+                this.classList.add("is-invalid"); // Marca o campo como inválido
+            }
+        } else {
+            errorDiv.textContent = "Por favor, insira um CPF com 11 dígitos ou um CNPJ com 14 dígitos.";
+            this.classList.add("is-invalid"); // Marca o campo como inválido
+        }
+    });
+
+    // Função de validação de CPF
+    function validarCPF(cpf) {
+        if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+
+        let soma = 0;
+        let resto;
+        for (let i = 1; i <= 9; i++) {
+            soma += parseInt(cpf.charAt(i - 1)) * (11 - i);
+        }
+
+        resto = (soma * 10) % 11;
+        if (resto === 10 || resto === 11) resto = 0;
+        if (resto !== parseInt(cpf.charAt(9))) return false;
+
+        soma = 0;
+        for (let i = 1; i <= 10; i++) {
+            soma += parseInt(cpf.charAt(i - 1)) * (12 - i);
+        }
+
+        resto = (soma * 10) % 11;
+        if (resto === 10 || resto === 11) resto = 0;
+        if (resto !== parseInt(cpf.charAt(10))) return false;
+
+        return true;
+    }
+
+    // Função de validação de CNPJ
+    function validarCNPJ(cnpj) {
+        if (cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
+
+        let tamanho = cnpj.length - 2;
+        let numeros = cnpj.substring(0, tamanho);
+        let digitos = cnpj.substring(tamanho);
+        let soma = 0;
+        let pos = tamanho - 7;
+
+        for (let i = tamanho; i >= 1; i--) {
+            soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
+            if (pos < 2) pos = 9;
+        }
+
+        let resto = soma % 11;
+        if (resto < 2) resto = 0;
+        else resto = 11 - resto;
+
+        if (resto !== parseInt(digitos.charAt(0))) return false;
+
+        soma = 0;
+        pos = tamanho - 7;
+
+        for (let i = tamanho + 1; i >= 1; i--) {
+            soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
+            if (pos < 2) pos = 9;
+        }
+
+        resto = soma % 11;
+        if (resto < 2) resto = 0;
+        else resto = 11 - resto;
+
+        if (resto !== parseInt(digitos.charAt(1))) return false;
+
+        return true;
+    }
+    </script>
 </body>
 </html>
