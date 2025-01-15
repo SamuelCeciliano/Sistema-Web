@@ -17,6 +17,10 @@ public class EquipamentoService {
     public Equipamento salvarEquipamento(Equipamento equipamento) {
         return equipamentoRepositorio.save(equipamento);
     }
+    
+    public List<Equipamento> listarTodos() {
+        return equipamentoRepositorio.findAll();
+    }
 
     // Método único para buscar um ou mais equipamentos
     public Equipamento buscarEquipamentoPorId(Long id) {

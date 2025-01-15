@@ -17,6 +17,10 @@ public class ClienteService {
     public List<Cliente> buscarClientesPorIds(List<Long> clienteIds) {
         return clienteRepositorio.findAllById(clienteIds);
     }
+    
+    public List<Cliente> listarTodos() {
+        return clienteRepositorio.findAll();
+    }
 
     // Método para buscar um único cliente por ID, retornando um Optional
     public Cliente buscarClientePorId(Long id) {
