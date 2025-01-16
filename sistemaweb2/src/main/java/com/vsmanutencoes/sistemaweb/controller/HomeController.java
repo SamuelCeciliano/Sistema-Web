@@ -26,4 +26,9 @@ public class HomeController {
     public String logout() {
         return "redirect:/login";
     }
+
+    @GetMapping("/consultas")
+    public String consultas() {
+        return "consultas"; 
+    }
 }
