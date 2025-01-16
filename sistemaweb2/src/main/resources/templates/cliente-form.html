@@ -121,6 +121,48 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js">
 </script>
 <script>
+
+document.querySelector("form").addEventListener("submit", function (event) {
+    const cnpjCpfField = document.getElementById("cnpjCpf");
+    const cepField = document.getElementById("cep");
+    const cnpjCpf = cnpjCpfField.value.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+    const cep = cepField.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+    let isValid = true;
+
+    // Valida CPF ou CNPJ
+    if (cnpjCpf.length === 11) {
+        if (!validarCPF(cnpjCpf)) {
+            document.getElementById("cnpjCpfError").textContent = "CPF inválido!";
+            cnpjCpfField.classList.add("is-invalid");
+            isValid = false;
+        }
+    } else if (cnpjCpf.length === 14) {
+        if (!validarCNPJ(cnpjCpf)) {
+            document.getElementById("cnpjCpfError").textContent = "CNPJ inválido!";
+            cnpjCpfField.classList.add("is-invalid");
+            isValid = false;
+        }
+    } else {
+        document.getElementById("cnpjCpfError").textContent = "Por favor, insira um CPF com 11 dígitos ou um CNPJ com 14 dígitos.";
+        cnpjCpfField.classList.add("is-invalid");
+        isValid = false;
+    }
+
+    // Valida CEP
+    if (cep.length !== 8) {
+        document.getElementById("cepError").textContent = "Por favor, insira um CEP válido com 8 dígitos.";
+        cepField.classList.add("is-invalid");
+        isValid = false;
+    }
+
+    // Cancela o envio do formulário se os campos não forem válidos
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+
+
     document.getElementById("cep").addEventListener("blur", function() {
         const cep = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
         const cepError = document.getElementById("cepError"); // Seleciona o elemento de erro
