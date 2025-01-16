@@ -1,12 +1,7 @@
 package com.vsmanutencoes.sistemaweb.controller;
 
-import com.vsmanutencoes.sistemaweb.models.Cliente;
-import com.vsmanutencoes.sistemaweb.service.ClienteService;
-import com.vsmanutencoes.sistemaweb.service.CepService;
-import com.vsmanutencoes.sistemaweb.models.Endereco;
-
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.Optional;
+
+import com.vsmanutencoes.sistemaweb.models.Cliente;
+import com.vsmanutencoes.sistemaweb.models.Endereco;
+import com.vsmanutencoes.sistemaweb.repositories.ClienteRepositorio;
+import com.vsmanutencoes.sistemaweb.service.CepService;
+import com.vsmanutencoes.sistemaweb.service.ClienteService;
+
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -26,6 +30,9 @@ public class ClienteController {
 
     @Autowired
     private CepService cepService;  // Serviço de consulta de CEP
+
+    @Autowired
+    private ClienteRepositorio clienteRepositorio;
     
     // Listar todos os clientes
     @GetMapping
@@ -69,4 +76,17 @@ public class ClienteController {
     public Endereco buscarEnderecoPorCep(@RequestParam String cep) {
         return cepService.buscarEnderecoPorCep(cep); // Chama o serviço que retorna o endereço
     }
+
+    @PostMapping("/toggleStatus/{id}")
+public ResponseEntity<Void> toggleStatus(@PathVariable Long id) {
+    Optional<Cliente> clienteOpt = clienteRepositorio.findById(id);
+    if (clienteOpt.isPresent()) {
+        Cliente cliente = clienteOpt.get();
+        cliente.setAtivo(!cliente.isAtivo()); // Alterna o status
+        clienteRepositorio.save(cliente);    // Salva no banco de dados
+        return ResponseEntity.ok().build();
+    }
+    return ResponseEntity.notFound().build(); // Retorna erro 404 caso o cliente não seja encontrado
+}
+
 }

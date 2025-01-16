@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consultas e Cadastros</title>
+
+    <!-- Importação do Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Consultas</h1>
+        <div class="d-flex flex-wrap justify-content-center">
+            <a href="/servicos" class="btn btn-primary btn-lg m-2">Serviços</a>
+            <a href="/materiais" class="btn btn-secondary btn-lg m-2">Materiais</a>
+            <a href="/equipamentos" class="btn btn-success btn-lg m-2">Equipamentos</a>
+            <a href="/clientes" class="btn btn-warning btn-lg m-2">Clientes</a>
+            <a href="/users" class="btn btn-info btn-lg m-2">Usuários</a>
+        </div>
+        <a href="/" class="btn btn-secondary">Voltar</a>
+    </div>
+
+    <!-- Scripts necessários para o funcionamento do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

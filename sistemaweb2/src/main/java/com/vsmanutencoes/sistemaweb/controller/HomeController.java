@@ -23,4 +23,9 @@ public class HomeController {
     public String logout() {
         return "logout";
     }
+
+    @GetMapping("/consultas")
+    public String consultas() {
+        return "consultas"; 
+    }
 }
