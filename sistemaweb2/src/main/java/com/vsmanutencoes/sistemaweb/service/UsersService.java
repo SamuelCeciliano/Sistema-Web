@@ -3,6 +3,7 @@ package com.vsmanutencoes.sistemaweb.service;
 import com.vsmanutencoes.sistemaweb.models.Users;
 import com.vsmanutencoes.sistemaweb.repositories.UsersRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public class UsersService {
 
     @Autowired
     private UsersRepositorio usersRepositorio;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Método para listar todos os usuários
     public List<Users> listarUsuarios() {
@@ -27,6 +31,8 @@ public class UsersService {
 
     // Método para salvar um novo usuário
     public Users salvarUsuario(Users usuario) {
+        // Criptografa a senha antes de salvar
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usersRepositorio.save(usuario);
     }
 
@@ -46,5 +52,10 @@ public class UsersService {
             user.setAtivo(false); // Define o status como inativo
             usersRepositorio.save(user);
         }
+    }
+
+    public Users buscarUsuarioPorUsername(String username) {
+        return usersRepositorio.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o username: " + username));
     }
 }
