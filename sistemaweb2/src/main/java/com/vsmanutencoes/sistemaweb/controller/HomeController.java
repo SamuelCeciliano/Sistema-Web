@@ -1,30 +1,27 @@
 package com.vsmanutencoes.sistemaweb.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
-    public String homePage(Model model) {
-        model.addAttribute("pageTitle", "Página Inicial - Sistema de Solicitações");
-        return "home";
-    }
     
     @GetMapping("/home")
-    public ModelAndView home() {
-        ModelAndView modelAndView = new ModelAndView("home");
-        // Substitua por um método que pega o usuário logado
-        modelAndView.addObject("username", "admin");
-        return modelAndView;
+    public String home(Model model, Principal principal) {
+        // Pega o nome do usuário logado
+        String username = principal.getName();
+        model.addAttribute("username", username);
+        return "home";  // Retorna a página onde você exibe o nome
     }
 
     @GetMapping("/logout")
     public String logout() {
-        return "redirect:/login";
+        return "logout";
     }
 
     @GetMapping("/consultas")
