@@ -18,8 +18,8 @@ a img.logovs-head {
 
 header {
     background-color: #DFFCFE;
-    height: 16%;
-    border-bottom: solid 2px darkblue;
+    height: 66%;
+    border-bottom: solid 2px rgb(139, 0, 0);
 }
 
 .logout-text {
