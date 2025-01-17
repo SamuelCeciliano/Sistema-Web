@@ -9,15 +9,16 @@ body {
     height: 100vh;
 }
 
-.logovs-head{
+a img.logovs-head {
     position: absolute;
     left: 0;
+    top:0;
     width: 15%;
 }
 
-header{
+header {
     background-color: #DFFCFE;
-    height: 14%;
+    height: 16%;
     border-bottom: solid 2px darkblue;
 }
 
@@ -33,5 +34,9 @@ header{
 
 .username {
     float: left;
+    color: darkblue;
+}
+
+.titulo{
     color: darkblue;
 }
