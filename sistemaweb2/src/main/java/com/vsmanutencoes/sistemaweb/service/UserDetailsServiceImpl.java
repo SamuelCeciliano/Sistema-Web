@@ -2,7 +2,6 @@ package com.vsmanutencoes.sistemaweb.service;
 
 import com.vsmanutencoes.sistemaweb.models.Users;
 import com.vsmanutencoes.sistemaweb.repositories.UsersRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,14 +15,13 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
     private final UsersRepositorio usersRepositorio;
     private static final Logger logger = Logger.getLogger(UserDetailsServiceImpl.class.getName());
 
-    @Autowired
     public UserDetailsServiceImpl(UsersRepositorio usersRepositorio) {
         this.usersRepositorio = usersRepositorio;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("Tentando carregar usuário: " + username);
+        logger.info(String.format("Tentando carregar usuário: %s", username));
         
         Users user = usersRepositorio.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + username));
@@ -32,7 +30,8 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
             throw new RuntimeException("Usuário inativo.");
         }
 
-        logger.info("Usuário encontrado: " + user.getUsername());
+        logger.info(String.format("Usuário encontrado: %s", user.getUsername()));
+
         
         return User.builder()
                 .username(user.getUsername())
