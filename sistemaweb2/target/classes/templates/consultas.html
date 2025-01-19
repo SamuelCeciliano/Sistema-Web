@@ -14,10 +14,9 @@
 </head>
 
 <body>
-    <header>
+    <header class="header">
         <!-- Cabeçalho -->
-        <div class="header d-flex justify-content-between align-items-center">
-
+        <div class="d-flex justify-content-between align-items-center">
             <a href="/home">
                 <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
             </a>
@@ -38,23 +37,26 @@
                 </a>
             </div>
         </div>
+
+        <!-- Botão de Voltar -->
+        <a href="/home" class="btn btn-secondary btn-voltar">Voltar</a>
     </header>
 
-    <div class="container mt-5">
-        <div class="d-flex flex-wrap justify-content-center">
-            <a href="/servicos" class="btn btn-primary btn-lg m-2">Serviços</a>
-            <a href="/materiais" class="btn btn-secondary btn-lg m-2">Materiais</a>
-            <a href="/equipamentos" class="btn btn-success btn-lg m-2">Equipamentos</a>
-            <a href="/clientes" class="btn btn-warning btn-lg m-2">Clientes</a>
-            <a href="/users" class="btn btn-info btn-lg m-2">Usuários</a>
+        <div class="menu">
+            <div class="d-flex flex-wrap justify-content-center">
+                <a href="/materiais" class="btn btn-lg m-2">Materiais</a>
+                <a href="/servicos" class="btn btn-lg m-2">Serviços</a>
+                <a href="/equipamentos" class="btn btn-lg m-2">Equipamentos</a>
+                <a href="/clientes" class="btn btn-lg m-2">Clientes</a>
+                <a href="/users" class="btn btn-lg m-2">Usuários</a>
+            </div>
         </div>
-        <a href="/home" class="btn btn-secondary">Voltar</a>
-    </div>
 
     <!-- Scripts necessários para o funcionamento do Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 
 </html>

@@ -1,5 +1,32 @@
-.container {
-    padding: 30px;
-    width: 100%;
-    text-align: center;
+a.btn {
+    font-size: 1.2rem;
+    border-radius: 5px; /* Torna os botões mais quadrados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra mais discreta */
+    transition: all 0.3s ease;
+    background-color: #12395f !important; /* Azul-marinho com prioridade */
+    color: #fff !important; /* Texto branco */
+    border: 1px solid #001a36; /* Borda para destaque */
+    padding: 6px 10px; /* Aumenta o espaço interno dos botões */
+}
+
+a.btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #001a36 !important; /* Tom mais escuro de azul-marinho */
+}
+
+a.btn:focus,
+a.btn:active {
+    background-color: #001a36 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.btn-voltar {
+    position: absolute;
+    top: 110px; /* Abaixo do logotipo */
+    left: 65px; /* Distância da borda esquerda */
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 5px; /* Mesmo estilo dos botões no menu */
 }
