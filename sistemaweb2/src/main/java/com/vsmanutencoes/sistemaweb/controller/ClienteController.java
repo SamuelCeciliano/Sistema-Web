@@ -1,5 +1,7 @@
 package com.vsmanutencoes.sistemaweb.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.Optional;
 
 import com.vsmanutencoes.sistemaweb.models.Cliente;
 import com.vsmanutencoes.sistemaweb.models.Endereco;
@@ -20,7 +21,6 @@ import com.vsmanutencoes.sistemaweb.service.ClienteService;
 
 import jakarta.validation.Valid;
 
-
 @Controller
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -29,11 +29,11 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @Autowired
-    private CepService cepService;  // Serviço de consulta de CEP
+    private CepService cepService; // Serviço de consulta de CEP
 
     @Autowired
     private ClienteRepositorio clienteRepositorio;
-    
+
     // Listar todos os clientes
     @GetMapping
     public String listarClientes(Model model) {
@@ -78,15 +78,17 @@ public class ClienteController {
     }
 
     @PostMapping("/toggleStatus/{id}")
-public ResponseEntity<Void> toggleStatus(@PathVariable Long id) {
-    Optional<Cliente> clienteOpt = clienteRepositorio.findById(id);
-    if (clienteOpt.isPresent()) {
-        Cliente cliente = clienteOpt.get();
-        cliente.setAtivo(!cliente.isAtivo()); // Alterna o status
-        clienteRepositorio.save(cliente);    // Salva no banco de dados
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> toggleStatus(@PathVariable Long id) {
+        Optional<Cliente> clienteOpt = clienteRepositorio.findById(id);
+        if (clienteOpt.isPresent()) {
+            Cliente cliente = clienteOpt.get();
+            cliente.setAtivo(!cliente.isAtivo());
+            clienteRepositorio.save(cliente);
+            System.out.println("Cliente atualizado: " + cliente); // Log
+            return ResponseEntity.ok().build();
+        }
+        System.out.println("Cliente não encontrado para o ID: " + id); // Log
+        return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.notFound().build(); // Retorna erro 404 caso o cliente não seja encontrado
-}
 
 }

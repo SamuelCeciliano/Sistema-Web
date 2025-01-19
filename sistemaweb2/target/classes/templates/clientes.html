@@ -3,6 +3,9 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
 	<title>Lista de Clientes</title>
 	<link rel="stylesheet" href="/css/all.css">
 	<link rel="stylesheet" href="/css/clientes.css">
@@ -77,36 +80,43 @@
 						<td>
 							<a class="btn btn-warning btn-sm"
 								th:href="@{/clientes/edit/{id}(id=${cliente.id})}">Editar</a>
-							<a class="btn btn-danger btn-sm" th:href="@{/clientes/delete/{id}(id=${cliente.id})}"
-								onclick="return confirm('Deseja realmente inativar este cliente?');">Inativar</a>
+							<a class="btn btn-sm mt-1" th:classappend="${cliente.ativo} ? 'btn-danger' : 'btn-success'"
+								th:onclick="'toggleStatus(' + ${cliente.id} + ');'"
+								th:text="${cliente.ativo} ? 'Inativar' : 'Ativar'">
+							</a>
+
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<a class="btn btn-success" th:href="@{/clientes/new}">Novo Cliente</a>
-		<a href="/home" class="btn btn-secondary">Voltar</a>
+		<a href="/consultas" class="btn btn-secondary">Voltar</a>
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 	<script>
 		function toggleStatus(clienteId) {
+			const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+			const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
 			if (confirm('Deseja realmente alterar o status deste cliente?')) {
 				fetch(`/clientes/toggleStatus/${clienteId}`, {
 					method: 'POST',
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						[csrfHeader]: csrfToken // Adiciona o token CSRF no cabeçalho
 					}
 				})
 					.then(response => {
 						if (response.ok) {
-							location.reload(); // Atualiza a página para refletir a mudança
+							location.reload(); // Atualiza a página
 						} else {
 							alert('Erro ao alterar o status do cliente.');
 						}
 					})
 					.catch(error => {
-						console.error('Erro:', error);
+						console.error('Erro no fetch:', error);
 						alert('Erro ao tentar alterar o status.');
 					});
 			}

@@ -1,6 +1,10 @@
 package com.vsmanutencoes.sistemaweb.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -57,7 +61,7 @@ public class Cliente {
     @NotEmpty(message = "O país é obrigatório")
     private String pais;
     
-    private boolean ativo = true;
+    private boolean ativo;
     
     // Getters e Setters
     public Long getId() {

@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
     <title>Lista de Usuários</title>
     <link rel="stylesheet" href="/css/all.css">
     <link rel="stylesheet" href="/css/users.css">
@@ -59,8 +62,10 @@
                         </td>
                         <td>
                             <a class="btn btn-warning btn-sm" th:href="@{/users/edit/{id}(id=${user.id})}">Editar</a>
-                            <a class="btn btn-danger btn-sm" th:href="@{/users/delete/{id}(id=${user.id})}"
-                                onclick="return confirm('Deseja realmente inativar este usuário?');">Inativar</a>
+                            <a class="btn btn-sm ms-2" th:classappend="${user.ativo} ? 'btn-danger' : 'btn-success'"
+                                th:onclick="'toggleUserStatus(' + ${user.id} + ');'"
+                                th:text="${user.ativo} ? 'Inativar' : 'Ativar'">
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -70,6 +75,34 @@
         <a href="/consultas" class="btn btn-secondary">Voltar</a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleUserStatus(userId) {
+            // Recupera os tokens CSRF do HTML
+            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+            if (confirm('Deseja realmente alterar o status deste usuário?')) {
+                fetch(`/users/toggleStatus/${userId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        [csrfHeader]: csrfToken // Adiciona o token CSRF no cabeçalho
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload(); // Recarrega a página para refletir a alteração
+                        } else {
+                            alert('Erro ao alterar o status do usuário.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Erro ao tentar alterar o status.');
+                    });
+            }
+        }
+    </script>
 </body>
 
 </html>

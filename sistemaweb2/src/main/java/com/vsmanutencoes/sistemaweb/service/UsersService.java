@@ -1,13 +1,14 @@
 package com.vsmanutencoes.sistemaweb.service;
 
-import com.vsmanutencoes.sistemaweb.models.Users;
-import com.vsmanutencoes.sistemaweb.repositories.UsersRepositorio;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.vsmanutencoes.sistemaweb.models.Users;
+import com.vsmanutencoes.sistemaweb.repositories.UsersRepositorio;
 
 @Service
 public class UsersService {
@@ -45,7 +46,7 @@ public class UsersService {
     }
 
      // Inativar usuário
-     public void inativarUsuario(Long id) {
+    public void inativarUsuario(Long id) {
         Optional<Users> userOpt = usersRepositorio.findById(id);
         if (userOpt.isPresent()) {
             Users user = userOpt.get();
@@ -58,4 +59,9 @@ public class UsersService {
         return usersRepositorio.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o username: " + username));
     }
+
+    public Optional<Users> buscarUsuarioPorIdOptional(Long id) {
+        return usersRepositorio.findById(id);
+    }
+    
 }
