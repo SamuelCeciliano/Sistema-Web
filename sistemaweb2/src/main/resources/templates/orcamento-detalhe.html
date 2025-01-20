@@ -22,18 +22,18 @@
                 <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
             </a>
 
-            <div class="logo mx-auto">
-                <h2 class="titulo">Detalhes de Orçamento</h2>
-            </div>
+            <h2 class="titulo">Detalhes de Orçamento</h2>
 
             <div class="user-actions">
-                <div class="username"><span th:text="${username}"></span></div>
-                <a href="/logout" style="text-decoration: none; color: darkblue;">
-                    <i class="bi bi-person-circle" style="font-size: 40px;"></i>
 
-                    <div class="logout-text" style="display: flex; align-items: center;">
+                <div class="username"><span th:text="${username}"></span></div>
+
+                <a href="/logout">
+                    <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
+
+                    <div class="logout-text">
                         <span>Logout</span>
-                        <i class="fas fa-arrow-left" style="font-size: 24px; margin-left: 5px;"></i>
+                        <i class="fas fa-arrow-left"></i>
                     </div>
                 </a>
             </div>
@@ -42,7 +42,7 @@
 
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
-    
+
     <div class="container mt-5">
         <div>
             <p><strong>ID:</strong> <span th:text="${orcamento.id}"></span></p>

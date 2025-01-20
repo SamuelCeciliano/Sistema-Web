@@ -22,23 +22,44 @@ header {
     border-bottom: solid 2px darkblue;
 }
 
+.user-actions a{
+    text-decoration: none; 
+    color: darkblue;
+}
+
+.perfil{
+    position: relative; 
+    right: 45px;
+}
+
 .logout-text {
     display: flex;
     align-items: center;
     margin-top: 5px;
+    position: absolute; 
+    right: 20px;
 }
 
 .logout-text i {
     margin-left: 5px;
+    font-size: 24px; 
+}
+
+span{
+    font-weight: bold;
 }
 
 .username {
-    float: left;
     color: darkblue;
+    position: absolute;
+    right: 8%;
+    top: 3%;
 }
 
 .titulo{
     color: darkblue;
+    padding-top: 10px;
+    transform: translate(0, 45%);
 }
 
 .logovs {

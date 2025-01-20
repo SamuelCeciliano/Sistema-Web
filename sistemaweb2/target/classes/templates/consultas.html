@@ -24,13 +24,15 @@
             <h2 class="titulo">Consultas</h2>
 
             <div class="user-actions">
-                <div class="username"><span th:text="${username}"></span></div>
-                <a href="/logout" style="text-decoration: none; color: darkblue;">
-                    <i class="bi bi-person-circle" style="font-size: 40px;"></i>
 
-                    <div class="logout-text" style="display: flex; align-items: center;">
+                <div class="username"><span th:text="${username}"></span></div>
+                
+                <a href="/logout">
+                    <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
+
+                    <div class="logout-text">
                         <span>Logout</span>
-                        <i class="fas fa-arrow-left" style="font-size: 24px; margin-left: 5px;"></i>
+                        <i class="fas fa-arrow-left"></i>
                     </div>
                 </a>
             </div>
