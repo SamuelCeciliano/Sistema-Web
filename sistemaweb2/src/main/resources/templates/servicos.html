@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Consultar Serviços</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/servicos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
+    <header>
+        <!-- Cabeçalho -->
+        <div class="header d-flex justify-content-between align-items-center">
+
+            <a href="/home">
+                <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
+            </a>
+
+            <h2 class="titulo">Serviços</h2>
+
+            <div class="user-actions">
+
+                <div class="username"><span th:text="${username}"></span></div>
+
+                <a href="/logout">
+                    <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
+
+                    <div class="logout-text">
+                        <span>Logout</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+
     <div class="container mt-5">
-        <h1 class ="mb-4">SERVIÇOS</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
-					<th>Id</th>
+                    <th>Id</th>
                     <th>Nome</th>
                     <th>Materiais</th>
                     <th>Ações</th>
@@ -20,24 +54,26 @@
             </thead>
             <tbody>
                 <tr th:each="servico : ${servicos}">
-					<td th:text="${servico.id}"></td>
+                    <td th:text="${servico.id}"></td>
                     <td th:text="${servico.nome}"></td>
-					<td>
-						<ul>
-							<li th:each="material : ${servico.materiais}" th:text="${material.nome}"></li>
-						</ul>
-					</td>
-					<td>	
-					 	<a class="btn btn-warning btn-sm" th:href="@{/servicos/edit/{id}(id=${servico.id})}">Editar</a>
-					 	<a class="btn btn-danger btn-sm" th:href="@{/servicos/delete/{id}(id=${servico.id})}">Excluir</a>
-					</td>
+                    <td>
+                        <ul>
+                            <li th:each="material : ${servico.materiais}" th:text="${material.nome}"></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" th:href="@{/servicos/edit/{id}(id=${servico.id})}">Editar</a>
+                        <a class="btn btn-danger btn-sm"
+                            th:href="@{/servicos/delete/{id}(id=${servico.id})}">Excluir</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <a class="btn btn-success" th:href="@{/servicos/new}">Novo Serviço</a>
-		<a href="/" class="btn btn-secondary">Voltar</a>
+        <a href="/consultas" class="btn btn-secondary">Voltar</a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -4,12 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Novo Cliente</title>
+    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/cliente-form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
+    <header>
+        <!-- Cabeçalho -->
+        <div class="header d-flex justify-content-between align-items-center">
+
+            <a href="/home">
+                <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
+            </a>
+
+            <h2 class="titulo">Cadastro de Novo Cliente</h2>
+
+            <div class="user-actions">
+
+                <div class="username"><span th:text="${username}"></span></div>
+
+                <a href="/logout">
+                    <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
+
+                    <div class="logout-text">
+                        <span>Logout</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+
     <div class="container mt-5">
-        <h2 class="mb-4">Cadastro de Novo Cliente</h2>
         <form th:action="@{/clientes/save}" th:object="${cliente}" method="post">
 
             <input type="hidden" th:field="*{id}" />
@@ -23,7 +56,8 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="cnpjCpf" class="form-label">CNPJ/CPF</label>
-                    <input type="text" id="cnpjCpf" th:field="*{cnpjCpf}" class="form-control" placeholder="CNPJ/CPF" required maxlength="14" />
+                    <input type="text" id="cnpjCpf" th:field="*{cnpjCpf}" class="form-control" placeholder="CNPJ/CPF"
+                        required maxlength="14" />
                     <div id="cnpjCpfError" class="invalid-feedback"></div> <!-- Mensagem de erro -->
                 </div>
 
@@ -59,8 +93,8 @@
                     <label for="cep" class="form-label">CEP</label>
                     <input type="text" id="cep" th:field="*{cep}" class="form-control" placeholder="CEP" required />
                     <div id="cepError" class="invalid-feedback"></div>
-            </div>
-            
+                </div>
+
 
                 <div class="col-md-4 mb-3">
                     <label for="uf" class="form-label">UF</label>
@@ -118,146 +152,189 @@
         </form>
     </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js">
-</script>
-<script>
-    document.getElementById("cep").addEventListener("blur", function() {
-        const cep = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
-        const cepError = document.getElementById("cepError"); // Seleciona o elemento de erro
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
 
-        // Remove mensagens e classes anteriores
-        cepError.textContent = "";
-        this.classList.remove("is-invalid");
-        this.classList.remove("is-valid");
+        document.querySelector("form").addEventListener("submit", function (event) {
+            const cnpjCpfField = document.getElementById("cnpjCpf");
+            const cepField = document.getElementById("cep");
+            const cnpjCpf = cnpjCpfField.value.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+            const cep = cepField.value.replace(/\D/g, ""); // Remove caracteres não numéricos
 
-        if (cep.length === 8) { // Verifica se o CEP possui 8 caracteres
-            fetch(`/clientes/cep?cep=${cep}`) // Faz a chamada ao backend
-                .then(response => response.json())
-                .then(data => {
-                    if (data && !data.erro) { // Se os dados do CEP forem válidos
-                        // Preenche os campos com os dados do endereço
-                        document.getElementById("uf").value = data.uf || "";
-                        document.getElementById("cidade").value = data.localidade || "";
-                        document.getElementById("bairro").value = data.bairro || "";
-                        document.getElementById("endereco").value = data.logradouro || "";
+            let isValid = true;
 
-                        // Adiciona classe de sucesso
-                        this.classList.add("is-valid");
-                    } else {
-                        // Exibe mensagem de erro para CEP não encontrado
-                        cepError.textContent = "CEP não encontrado. Verifique e tente novamente.";
+            // Valida CPF ou CNPJ
+            if (cnpjCpf.length === 11) {
+                if (!validarCPF(cnpjCpf)) {
+                    document.getElementById("cnpjCpfError").textContent = "CPF inválido!";
+                    cnpjCpfField.classList.add("is-invalid");
+                    isValid = false;
+                }
+            } else if (cnpjCpf.length === 14) {
+                if (!validarCNPJ(cnpjCpf)) {
+                    document.getElementById("cnpjCpfError").textContent = "CNPJ inválido!";
+                    cnpjCpfField.classList.add("is-invalid");
+                    isValid = false;
+                }
+            } else {
+                document.getElementById("cnpjCpfError").textContent = "Por favor, insira um CPF com 11 dígitos ou um CNPJ com 14 dígitos.";
+                cnpjCpfField.classList.add("is-invalid");
+                isValid = false;
+            }
+
+            // Valida CEP
+            if (cep.length !== 8) {
+                document.getElementById("cepError").textContent = "Por favor, insira um CEP válido com 8 dígitos.";
+                cepField.classList.add("is-invalid");
+                isValid = false;
+            }
+
+            // Cancela o envio do formulário se os campos não forem válidos
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+
+        document.getElementById("cep").addEventListener("blur", function () {
+            const cep = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+            const cepError = document.getElementById("cepError"); // Seleciona o elemento de erro
+
+            // Remove mensagens e classes anteriores
+            cepError.textContent = "";
+            this.classList.remove("is-invalid");
+            this.classList.remove("is-valid");
+
+            if (cep.length === 8) { // Verifica se o CEP possui 8 caracteres
+                fetch(`/clientes/cep?cep=${cep}`) // Faz a chamada ao backend
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && !data.erro) { // Se os dados do CEP forem válidos
+                            // Preenche os campos com os dados do endereço
+                            document.getElementById("uf").value = data.uf || "";
+                            document.getElementById("cidade").value = data.localidade || "";
+                            document.getElementById("bairro").value = data.bairro || "";
+                            document.getElementById("endereco").value = data.logradouro || "";
+
+                            // Adiciona classe de sucesso
+                            this.classList.add("is-valid");
+                        } else {
+                            // Exibe mensagem de erro para CEP não encontrado
+                            cepError.textContent = "CEP não encontrado. Verifique e tente novamente.";
+                            this.classList.add("is-invalid");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erro ao buscar o CEP:", error);
+                        // Exibe mensagem de erro genérica
+                        cepError.textContent = "Erro ao buscar o endereço. Tente novamente.";
                         this.classList.add("is-invalid");
-                    }
-                })
-                .catch(error => {
-                    console.error("Erro ao buscar o CEP:", error);
-                    // Exibe mensagem de erro genérica
-                    cepError.textContent = "Erro ao buscar o endereço. Tente novamente.";
-                    this.classList.add("is-invalid");
-                });
-        } else {
-            // Exibe mensagem de erro para CEP inválido
-            cepError.textContent = "Por favor, insira um CEP válido com 8 dígitos.";
-            this.classList.add("is-invalid");
-        }
-    });
-    
+                    });
+            } else {
+                // Exibe mensagem de erro para CEP inválido
+                cepError.textContent = "Por favor, insira um CEP válido com 8 dígitos.";
+                this.classList.add("is-invalid");
+            }
+        });
+
         // Validação de CPF ou CNPJ
-    document.getElementById("cnpjCpf").addEventListener("blur", function () {
-        const cnpjCpf = this.value.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
-        const errorDiv = document.getElementById("cnpjCpfError");
+        document.getElementById("cnpjCpf").addEventListener("blur", function () {
+            const cnpjCpf = this.value.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+            const errorDiv = document.getElementById("cnpjCpfError");
 
-        // Remove mensagens e classes anteriores
-        errorDiv.textContent = "";
-        this.classList.remove("is-invalid");
-        this.classList.remove("is-valid");
+            // Remove mensagens e classes anteriores
+            errorDiv.textContent = "";
+            this.classList.remove("is-invalid");
+            this.classList.remove("is-valid");
 
-        // Valida CPF
-        if (cnpjCpf.length === 11) {
-            if (validarCPF(cnpjCpf)) {
-                this.classList.add("is-valid"); // Marca o campo como válido
+            // Valida CPF
+            if (cnpjCpf.length === 11) {
+                if (validarCPF(cnpjCpf)) {
+                    this.classList.add("is-valid"); // Marca o campo como válido
+                } else {
+                    errorDiv.textContent = "CPF inválido!";
+                    this.classList.add("is-invalid"); // Marca o campo como inválido
+                }
+            }
+            // Valida CNPJ
+            else if (cnpjCpf.length === 14) {
+                if (validarCNPJ(cnpjCpf)) {
+                    this.classList.add("is-valid"); // Marca o campo como válido
+                } else {
+                    errorDiv.textContent = "CNPJ inválido!";
+                    this.classList.add("is-invalid"); // Marca o campo como inválido
+                }
             } else {
-                errorDiv.textContent = "CPF inválido!";
+                errorDiv.textContent = "Por favor, insira um CPF com 11 dígitos ou um CNPJ com 14 dígitos.";
                 this.classList.add("is-invalid"); // Marca o campo como inválido
             }
-        }
-        // Valida CNPJ
-        else if (cnpjCpf.length === 14) {
-            if (validarCNPJ(cnpjCpf)) {
-                this.classList.add("is-valid"); // Marca o campo como válido
-            } else {
-                errorDiv.textContent = "CNPJ inválido!";
-                this.classList.add("is-invalid"); // Marca o campo como inválido
+        });
+
+        // Função de validação de CPF
+        function validarCPF(cpf) {
+            if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+
+            let soma = 0;
+            let resto;
+            for (let i = 1; i <= 9; i++) {
+                soma += parseInt(cpf.charAt(i - 1)) * (11 - i);
             }
-        } else {
-            errorDiv.textContent = "Por favor, insira um CPF com 11 dígitos ou um CNPJ com 14 dígitos.";
-            this.classList.add("is-invalid"); // Marca o campo como inválido
-        }
-    });
 
-    // Função de validação de CPF
-    function validarCPF(cpf) {
-        if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(9))) return false;
 
-        let soma = 0;
-        let resto;
-        for (let i = 1; i <= 9; i++) {
-            soma += parseInt(cpf.charAt(i - 1)) * (11 - i);
-        }
+            soma = 0;
+            for (let i = 1; i <= 10; i++) {
+                soma += parseInt(cpf.charAt(i - 1)) * (12 - i);
+            }
 
-        resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpf.charAt(9))) return false;
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(10))) return false;
 
-        soma = 0;
-        for (let i = 1; i <= 10; i++) {
-            soma += parseInt(cpf.charAt(i - 1)) * (12 - i);
+            return true;
         }
 
-        resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpf.charAt(10))) return false;
+        // Função de validação de CNPJ
+        function validarCNPJ(cnpj) {
+            if (cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
 
-        return true;
-    }
+            let tamanho = cnpj.length - 2;
+            let numeros = cnpj.substring(0, tamanho);
+            let digitos = cnpj.substring(tamanho);
+            let soma = 0;
+            let pos = tamanho - 7;
 
-    // Função de validação de CNPJ
-    function validarCNPJ(cnpj) {
-        if (cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
+            for (let i = tamanho; i >= 1; i--) {
+                soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
+                if (pos < 2) pos = 9;
+            }
 
-        let tamanho = cnpj.length - 2;
-        let numeros = cnpj.substring(0, tamanho);
-        let digitos = cnpj.substring(tamanho);
-        let soma = 0;
-        let pos = tamanho - 7;
+            let resto = soma % 11;
+            if (resto < 2) resto = 0;
+            else resto = 11 - resto;
 
-        for (let i = tamanho; i >= 1; i--) {
-            soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
-            if (pos < 2) pos = 9;
+            if (resto !== parseInt(digitos.charAt(0))) return false;
+
+            soma = 0;
+            pos = tamanho - 7;
+
+            for (let i = tamanho + 1; i >= 1; i--) {
+                soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
+                if (pos < 2) pos = 9;
+            }
+
+            resto = soma % 11;
+            if (resto < 2) resto = 0;
+            else resto = 11 - resto;
+
+            if (resto !== parseInt(digitos.charAt(1))) return false;
+
+            return true;
         }
-
-        let resto = soma % 11;
-        if (resto < 2) resto = 0;
-        else resto = 11 - resto;
-
-        if (resto !== parseInt(digitos.charAt(0))) return false;
-
-        soma = 0;
-        pos = tamanho - 7;
-
-        for (let i = tamanho + 1; i >= 1; i--) {
-            soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
-            if (pos < 2) pos = 9;
-        }
-
-        resto = soma % 11;
-        if (resto < 2) resto = 0;
-        else resto = 11 - resto;
-
-        if (resto !== parseInt(digitos.charAt(1))) return false;
-
-        return true;
-    }
     </script>
 </body>
+
 </html>

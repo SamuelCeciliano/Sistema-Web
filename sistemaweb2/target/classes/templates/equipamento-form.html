@@ -1,54 +1,94 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Novo Equipamento</title>
+    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/equipamento-form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">Cadastro de Novo Equipamento</h2>
-    <form th:action="@{/equipamentos/save}" th:object="${equipamento}" method="post">
+    <header>
+        <!-- Cabeçalho -->
+        <div class="header d-flex justify-content-between align-items-center">
 
-        <input type="hidden" th:field="*{id}"/>
+            <a href="/home">
+                <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
+            </a>
 
-        <div class="row">
-            <!-- Nome do Equipamento -->
-            <div class="col-md-6 mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" id="nome" th:field="*{nome}" class="form-control" placeholder="Nome do equipamento" required/>
-            </div>
+            <h2 class="titulo">Cadastro de Novo Equipamento</h2>
 
-            <!-- Modelo do Equipamento -->
-            <div class="col-md-6 mb-3">
-                <label for="modelo" class="form-label">Modelo</label>
-                <input type="text" id="modelo" th:field="*{modelo}" class="form-control" placeholder="Modelo do equipamento" required/>
-            </div>
+            <div class="user-actions">
 
-            <!-- Marca do Equipamento -->
-            <div class="col-md-6 mb-3">
-                <label for="marca" class="form-label">Marca</label>
-                <input type="text" id="marca" th:field="*{marca}" class="form-control" placeholder="Marca do equipamento" required/>
+                <div class="username"><span th:text="${username}"></span></div>
+
+                <a href="/logout">
+                    <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
+
+                    <div class="logout-text">
+                        <span>Logout</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </a>
             </div>
         </div>
+    </header>
 
-        <!-- Serviços Realizados -->
-        <div class="mb-3">
-            <label for="servicos" class="form-label">Serviços Realizados</label>
-            <select id="servicos" name="servicoIds" class="form-select" multiple>
-                <option th:each="servico : ${servicos}" th:value="${servico.id}" th:text="${servico.nome}"></option>
-            </select>
-            <small class="form-text text-muted">Segure CTRL (ou CMD no Mac) para selecionar múltiplos serviços.</small>
-        </div>
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-        <!-- Botões de Ação -->
-        <div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a class="btn btn-secondary" th:href="@{/equipamentos}">Cancelar</a>
-        </div>
-    </form>
-</div>
+    <div class="container mt-5">
+        <form th:action="@{/equipamentos/save}" th:object="${equipamento}" method="post">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+                <!-- Nome do Equipamento -->
+                <div class="col-md-6 mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" id="nome" th:field="*{nome}" class="form-control"
+                        placeholder="Nome do equipamento" required />
+                </div>
+
+                <!-- Modelo do Equipamento -->
+                <div class="col-md-6 mb-3">
+                    <label for="modelo" class="form-label">Modelo</label>
+                    <input type="text" id="modelo" th:field="*{modelo}" class="form-control"
+                        placeholder="Modelo do equipamento" required />
+                </div>
+
+                <!-- Marca do Equipamento -->
+                <div class="col-md-6 mb-3">
+                    <label for="marca" class="form-label">Marca</label>
+                    <input type="text" id="marca" th:field="*{marca}" class="form-control"
+                        placeholder="Marca do equipamento" required />
+                </div>
+            </div>
+
+            <!-- Serviços Realizados -->
+            <div class="mb-3">
+                <label for="servicos" class="form-label">Serviços Realizados</label>
+                <select id="servicos" name="servicoIds" class="form-select" multiple>
+                    <option th:each="servico : ${servicos}" th:value="${servico.id}" th:text="${servico.nome}"></option>
+                </select>
+                <small class="form-text text-muted">Segure CTRL (ou CMD no Mac) para selecionar múltiplos
+                    serviços.</small>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a class="btn btn-secondary" th:href="@{/equipamentos}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

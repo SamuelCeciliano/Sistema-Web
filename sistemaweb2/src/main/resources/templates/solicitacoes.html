@@ -1,70 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Consulta de Solicitações de Orçamento</title>
+    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/solicitacoes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-        header {
-            background-color: #DFFCFE;
-            font-size: 20px;
-            height: 30vh;
-            border-bottom: 2px solid darkblue;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        header h2 {
-            color: darkblue;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            margin: 5px; /* Espaçamento entre os botões */
-        }
-
-        .btn-primary {
-            background-color: darkblue;
-            border: 1px solid rgb(2, 2, 255);
-        }
-
-        .btn-primary:hover {
-            background-color: rgb(2, 2, 255);
-        }
-
-        .table thead th {
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        .table tbody td {
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        .table span {
-            display: inline-block;
-        }
-    </style>
 </head>
+
 <body>
-    <div class="container mt-5">
-        <header>
-            <h2>SOLICITAÇÕES DE SERVIÇOS</h2>
-            <div>
-                <a href="/solicitacoes/new" class="btn btn-primary">Nova Solicitação</a>
-                <a href="/" class="btn btn-secondary">Voltar</a>
+    <header>
+        <!-- Cabeçalho -->
+        <div class="header d-flex justify-content-between align-items-center">
+
+            <a href="/home">
+                <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
+            </a>
+
+            <h2 class="titulo">Solicitações de Serviços</h2>
+
+            <div class="user-actions">
+
+                <div class="username"><span th:text="${username}"></span></div>
+
+                <a href="/logout">
+                    <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
+
+                    <div class="logout-text">
+                        <span>Logout</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </a>
             </div>
-        </header>
+        </div>
+    </header>
+
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+
+    <div class="container mt-5">
+
+        <div>
+            <a href="/solicitacoes/new" class="btn btn-primary">Nova Solicitação</a>
+            <a href="/home" class="btn btn-secondary">Voltar</a>
+        </div>
 
         <div class="container mt-5">
             <table class="table table-striped">
@@ -89,21 +72,25 @@
 
                         <!-- Equipamentos -->
                         <td>
-                            <span th:each="equipamento : ${solicitacao.equipamentos}" th:text="${equipamento.nome}" class="d-block"></span>
+                            <span th:each="equipamento : ${solicitacao.equipamentos}" th:text="${equipamento.nome}"
+                                class="d-block"></span>
                         </td>
 
                         <!-- Descrição -->
                         <td th:text="${solicitacao.descricao}">Descrição</td>
-                        
+
                         <!-- Data e Hora -->
                         <td th:text="${solicitacao.data}">Data</td>
                         <td th:text="${solicitacao.hora}">Hora</td>
-                        
+
                         <!-- Ações -->
                         <td>
-                            <a th:href="@{/solicitacoes/edit/{id}(id=${solicitacao.id})}" class="btn btn-warning btn-sm">Editar</a>
-                            <a th:href="@{/solicitacoes/delete/{id}(id=${solicitacao.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
-                            <a href="/" class="btn btn-primary btn-sm">Abrir Orçamento</a>
+                            <a th:href="@{/solicitacoes/edit/{id}(id=${solicitacao.id})}"
+                                class="btn btn-warning btn-sm">Editar</a>
+                            <a th:href="@{/solicitacoes/delete/{id}(id=${solicitacao.id})}"
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                            <a href="/home" class="btn btn-primary btn-sm">Abrir Orçamento</a>
                         </td>
                     </tr>
                 </tbody>
@@ -113,4 +100,5 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

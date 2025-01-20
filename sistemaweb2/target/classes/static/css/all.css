@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100vh;
+}
+
+a img.logovs-head {
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 15%;
+}
+
+header {
+    background-color: #DFFCFE;
+    height: 16%;
+    border-bottom: solid 2px darkblue;
+}
+
+.user-actions a{
+    text-decoration: none; 
+    color: darkblue;
+}
+
+.perfil{
+    position: relative; 
+    right: 45px;
+}
+
+.logout-text {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    position: absolute; 
+    right: 20px;
+}
+
+.logout-text i {
+    margin-left: 5px;
+    font-size: 24px; 
+}
+
+span{
+    font-weight: bold;
+}
+
+.username {
+    color: darkblue;
+    position: absolute;
+    right: 8%;
+    top: 3%;
+}
+
+.titulo{
+    color: darkblue;
+    padding-top: 10px;
+    transform: translate(0, 45%);
+}
+
+.logovs {
+    z-index: -1;
+    opacity: 0.2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+}

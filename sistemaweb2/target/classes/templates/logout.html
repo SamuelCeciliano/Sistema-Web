@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Logout</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+            text-align: center;
+        }
+
+        .message-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-container h1 {
+            color: #007BFF;
+        }
+
+        .countdown {
+            font-size: 2em;
+            color: #FF5733;
+        }
+
+        .message-container .btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-container">
+        <h1>Até logo!</h1>
+        <p>Aguarde, você será redirecionado para a tela de login em <span id="countdown" class="countdown">20</span> segundos...</p>
+        <button class="btn btn-primary" onclick="window.location.href='/login'">Voltar para o Login</button>
+    </div>
+
+    <script>
+        // Contagem regressiva para redirecionamento
+        var countdown = 20;
+        var countdownElement = document.getElementById('countdown');
+        var interval = setInterval(function() {
+            countdown--;
+            countdownElement.textContent = countdown;
+            if (countdown <= 0) {
+                clearInterval(interval);
+                window.location.href = '/login';  // Redireciona para o login após 20 segundos
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
