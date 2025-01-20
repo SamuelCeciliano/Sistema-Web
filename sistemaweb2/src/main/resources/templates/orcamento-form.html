@@ -39,6 +39,9 @@
 		</div>
 	</header>
 
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+    
     <div class="container mt-5">
         <h2 th:text="${orcamento.id == null ? 'Criar Novo Orçamento' : 'Editar Orçamento'}"></h2>
         <form th:action="@{/orcamentos/save}" th:object="${orcamento}" method="post">

@@ -38,6 +38,9 @@
         </div>
     </header>
 
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+
     <div class="container mt-5">
         <h2 class="mb-4" th:text="${user.id} == null ? 'Novo Usuário' : 'Editar Usuário'"></h2>
         <form th:action="@{/users/save}" th:object="${user}" method="post">

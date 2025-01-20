@@ -38,6 +38,9 @@
         </div>
     </header>
 
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+
     <div class="container mt-5">
         <form th:action="@{/solicitacoes/save}" th:object="${solicitacao}" method="post">
             <input type="hidden" th:field="*{id}" />

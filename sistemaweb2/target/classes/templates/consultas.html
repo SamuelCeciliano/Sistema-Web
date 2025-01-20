@@ -21,9 +21,7 @@
                 <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
             </a>
 
-            <div class="logo mx-auto">
-                <h2 class="titulo">Consultas</h2>
-            </div>
+            <h2 class="titulo">Consultas</h2>
 
             <div class="user-actions">
                 <div class="username"><span th:text="${username}"></span></div>
@@ -42,15 +40,18 @@
         <a href="/home" class="btn btn-secondary btn-voltar">Voltar</a>
     </header>
 
-        <div class="menu">
-            <div class="d-flex flex-wrap justify-content-center">
-                <a href="/materiais" class="btn btn-lg m-2">Materiais</a>
-                <a href="/servicos" class="btn btn-lg m-2">Serviços</a>
-                <a href="/equipamentos" class="btn btn-lg m-2">Equipamentos</a>
-                <a href="/clientes" class="btn btn-lg m-2">Clientes</a>
-                <a href="/users" class="btn btn-lg m-2">Usuários</a>
-            </div>
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+
+    <div class="menu">
+        <div class="d-flex flex-wrap justify-content-center">
+            <a href="/materiais" class="btn btn-lg m-2">Materiais</a>
+            <a href="/servicos" class="btn btn-lg m-2">Serviços</a>
+            <a href="/equipamentos" class="btn btn-lg m-2">Equipamentos</a>
+            <a href="/clientes" class="btn btn-lg m-2">Clientes</a>
+            <a href="/users" class="btn btn-lg m-2">Usuários</a>
         </div>
+    </div>
 
     <!-- Scripts necessários para o funcionamento do Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
