@@ -8,7 +8,7 @@
 <body>
     <div class="container mt-5">
         <h2 th:text="${orcamento.id == null ? 'Criar Novo Orçamento' : 'Editar Orçamento'}"></h2>
-        <form th:action="@{/orcamentos/save}" th:object="${orcamento}" method="post">
+        <form th:action="@{/orcamentos/save}" th:object="${orcamento}" method="POST">
             <!-- Campo oculto para ID -->
             <input type="hidden" th:field="*{id}">
             
@@ -23,6 +23,10 @@
                 <select id="equipamentos" th:field="*{equipamentos}" class="form-control" multiple required>
                     <option th:each="equipamento : ${equipamentos}" th:value="${equipamento.id}" th:text="${equipamento.nome}"></option>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3" required></textarea>
             </div>
             <div class="form-group">
                 <label for="status">Status:</label>

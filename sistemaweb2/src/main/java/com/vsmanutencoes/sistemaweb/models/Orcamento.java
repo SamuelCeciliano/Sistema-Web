@@ -28,11 +28,14 @@ public class Orcamento {
     private StatusSolicitacao status;
 
     private BigDecimal valorTotal;
-    
+
     private LocalDateTime dataCriacao;
     
     @OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ServicoOrcamento> servicos;
+
+    // Campo de descrição
+    private String descricao;
 
     // Getters e Setters
     public Long getId() {
@@ -74,7 +77,7 @@ public class Orcamento {
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
-    
+
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
@@ -82,8 +85,20 @@ public class Orcamento {
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
-    
+
     public List<ServicoOrcamento> getServicos() {
         return servicos;
+    }
+
+    public void setServicos(List<ServicoOrcamento> servicos) {
+        this.servicos = servicos;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
