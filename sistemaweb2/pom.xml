@@ -98,8 +98,16 @@
 			<version>1.11.0</version>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>3.1.4</version> <!-- Certifique-se de usar a versão correspondente ao seu projeto -->
+		</dependency>
+
 
 	</dependencies>
 
