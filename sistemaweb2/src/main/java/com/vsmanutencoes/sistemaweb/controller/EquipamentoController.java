@@ -45,7 +45,10 @@ public class EquipamentoController {
 
 
     @GetMapping("/new")
-    public String novoEquipamentoForm(Model model) {
+    public String novoEquipamentoForm(Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("equipamento", new Equipamento());
         model.addAttribute("servicos", servicoService.listarTodosServicos()); // Lista de serviços para o formulário
         return "equipamento-form";
@@ -67,7 +70,10 @@ public class EquipamentoController {
 
 
     @GetMapping("/edit/{id}")
-    public String editarEquipamentoForm(@PathVariable Long id, Model model) {
+    public String editarEquipamentoForm(@PathVariable Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         Equipamento equipamento = equipamentoService.buscarEquipamentoPorId(id);
         model.addAttribute("equipamento", equipamento);
         model.addAttribute("servicos", servicoService.listarTodosServicos()); // Lista de serviços para o formulário
@@ -75,7 +81,10 @@ public class EquipamentoController {
     }
 
     @GetMapping("/delete/{id}")
-    public String excluirEquipamento(@PathVariable("id") Long id) {
+    public String excluirEquipamento(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         equipamentoService.excluirEquipamento(id);
         return "redirect:/equipamentos";
     }

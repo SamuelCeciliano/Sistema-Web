@@ -6,13 +6,10 @@ import com.vsmanutencoes.sistemaweb.service.EmailService;
 import com.vsmanutencoes.sistemaweb.service.EquipamentoService;
 import com.vsmanutencoes.sistemaweb.service.OrcamentoService;
 
-import jakarta.mail.MessagingException;
-
 import java.security.Principal;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +39,10 @@ public class OrcamentoController {
     }
 
     @GetMapping("/new")
-    public String criarOrcamento(Model model) {
+    public String criarOrcamento(Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("orcamento", new Orcamento());
         model.addAttribute("clientes", clienteService.listarTodos());
         model.addAttribute("equipamentos", equipamentoService.listarTodos());
@@ -111,7 +111,10 @@ public class OrcamentoController {
         }
 
     @GetMapping("/edit/{id}")
-    public String editarOrcamento(@PathVariable Long id, Model model) {
+    public String editarOrcamento(@PathVariable Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("orcamento", orcamentoService.buscarPorId(id));
         model.addAttribute("clientes", clienteService.listarTodos());
         model.addAttribute("equipamentos", equipamentoService.listarTodos());
@@ -119,7 +122,10 @@ public class OrcamentoController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletarOrcamento(@PathVariable Long id) {
+    public String deletarOrcamento(@PathVariable Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         orcamentoService.deletarOrcamento(id);
         return "redirect:/orcamentos";
     }
@@ -127,7 +133,10 @@ public class OrcamentoController {
     
     //Exibir detalhes
     @GetMapping("/{id}")
-    public String exibirDetalhes(@PathVariable Long id, Model model) {
+    public String exibirDetalhes(@PathVariable Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         Orcamento orcamento = orcamentoService.buscarPorId(id); // ou outro serviço que retorna o orçamento
         if (orcamento != null) {
             model.addAttribute("orcamento", orcamento);

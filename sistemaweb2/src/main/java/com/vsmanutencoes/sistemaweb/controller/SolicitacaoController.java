@@ -50,7 +50,10 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/new")
-    public String novoFormulario(Model model) {
+    public String novoFormulario(Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("solicitacao", new SolicitacaoOrcamento());
         model.addAttribute("clientes", clienteService.listarTodosClientes());
         model.addAttribute("equipamentos", equipamentoService.listarTodosEquipamentos());
@@ -75,7 +78,10 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editarSolicitacaoForm(@PathVariable("id") Long id, Model model) {
+    public String editarSolicitacaoForm(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         SolicitacaoOrcamento solicitacao = solicitacaoOrcamentoService.buscarSolicitacaoPorId(id);
         model.addAttribute("solicitacao", solicitacao);
         model.addAttribute("clientes", clienteService.listarTodosClientes());
@@ -84,7 +90,10 @@ public class SolicitacaoController {
     }
     
     @GetMapping("/delete/{id}")
-    public String excluirSolicitacao(@PathVariable("id") Long id) {
+    public String excluirSolicitacao(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         solicitacaoOrcamentoService.excluirSolicitacao(id);
         return "redirect:/solicitacoes";
     }

@@ -33,7 +33,10 @@ public class UsersController {
 
     // Exibir formulário de novo usuário
     @GetMapping("/new")
-    public String novoUserForm(Model model) {
+    public String novoUserForm(Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("user", new Users());
         return "user-form";
     }
@@ -47,7 +50,10 @@ public class UsersController {
 
     // Exibir formulário de edição de usuário
     @GetMapping("/edit/{id}")
-    public String editarUserForm(@PathVariable("id") Long id, Model model) {
+    public String editarUserForm(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         Users user = usersService.buscarUsuarioPorId(id);
         model.addAttribute("user", user);
         return "user-form";
@@ -55,13 +61,19 @@ public class UsersController {
 
     // Inativar usuário
     @GetMapping("/delete/{id}")
-    public String inativarUsuario(@PathVariable("id") Long id) {
+    public String inativarUsuario(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         usersService.inativarUsuario(id);
         return "redirect:/users";
     }
 
     @PostMapping("/toggleStatus/{id}")
-    public ResponseEntity<Void> toggleStatus(@PathVariable Long id) {
+    public ResponseEntity<Void> toggleStatus(@PathVariable Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         Optional<Users> userOpt = usersService.buscarUsuarioPorIdOptional(id);
         if (userOpt.isPresent()) {
             Users user = userOpt.get();

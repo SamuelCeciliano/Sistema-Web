@@ -49,7 +49,10 @@ public class MaterialController {
 
     // Exibir formulário de novo cliente
     @GetMapping("/new")
-    public String novoMaterialForm(Model model) {
+    public String novoMaterialForm(Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("material", new Material());
         return "material-form";
     }
@@ -63,7 +66,10 @@ public class MaterialController {
 
     // Exibir formulário de edição de cliente
     @GetMapping("/edit/{id}")
-    public String editarMaterialForm(@PathVariable Long id, Model model) {
+    public String editarMaterialForm(@PathVariable Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         Material material = materialService.buscarMaterialPorId(id);
         model.addAttribute("material", material);
         return "material-form";
@@ -71,7 +77,10 @@ public class MaterialController {
 
     // Excluir cliente
     @GetMapping("/delete/{id}")
-    public String excluirMaterial(@PathVariable("id") Long id) {
+    public String excluirMaterial(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         materialService.excluirMaterial(id);
         return "redirect:/materiais";
     }
