@@ -90,15 +90,22 @@ public class OrcamentoController {
         @ResponseBody
         public String enviarEmailOrcamento(@RequestBody Orcamento orcamento) {
             try {
+                // Converte a lista de equipamentos em uma string legível
+                String equipamentosFormatados = orcamento.getEquipamentos().stream()
+                    .map(equipamento -> equipamento.getNome()) // Assume que existe um método getNome()
+                    .reduce((e1, e2) -> e1 + ", " + e2) // Junta os nomes separados por vírgula
+                    .orElse("Nenhum equipamento informado");
+
                 emailService.enviarEmail(
                     orcamento.getCliente().getEmail(),
                     "Novo Orçamento Criado",
                     "Detalhes do Orçamento:\n\n" +
-                    "Olá " + orcamento.getCliente().getNome() + "\n" +
+                    "Olá " + orcamento.getCliente().getNome() + ",\n" +
                     "Seu orçamento foi criado com sucesso." + "\n\n" +
+                    "Equipamentos: " + equipamentosFormatados + "\n" +
                     "Status: " + orcamento.getStatus() + "\n" +
                     "Descrição: " + orcamento.getDescricao() + "\n" +
-                    "Valor Total: R$ " + orcamento.getValorTotal() + "\n\n"+
+                    "Valor Total: R$ " + orcamento.getValorTotal() + "\n\n" +
                     "Obrigado por escolher nossos serviços."
                 );
                 return "E-mail enviado com sucesso!";
