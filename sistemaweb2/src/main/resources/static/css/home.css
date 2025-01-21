@@ -77,11 +77,11 @@ body {
 }
 
 
-.logovs {
+.logovs-home {
     z-index: -1;
     opacity: 0.2;
     position: absolute;
-    top: 55%;
+    top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
