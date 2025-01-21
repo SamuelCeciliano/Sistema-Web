@@ -49,4 +49,8 @@ public class ServicoService {
             throw new RuntimeException("Serviço não encontrado com o ID: " + id);
         }
     }
+
+    public List<Servico> filtrarServicos(Long id, String nome) {
+        return servicoRepositorio.filtrarServicos(id, nome);
+    }
 }

@@ -29,10 +29,20 @@ public class ServicoController {
     private MaterialService materialService;
 
     @GetMapping
-    public String listarServicos(Model model, Principal principal) {
+    public String listarServicos(
+        @RequestParam(required = false) Long id,
+        @RequestParam(required = false) String nome,
+        Model model, Principal principal
+    ) {
         String username = principal.getName();
         model.addAttribute("username", username);
-        model.addAttribute("servicos", servicoService.listarTodosServicos());
+
+        // Caso todos os filtros sejam nulos, traga todos os serviços
+        if (id == null && nome == null) {
+            model.addAttribute("servicos", servicoService.listarTodosServicos());
+        } else {
+            model.addAttribute("servicos", servicoService.filtrarServicos(id, nome));
+        }
         return "servicos";
     }
 
