@@ -40,13 +40,14 @@
     </header>
 
     <!-- Botão de Voltar -->
-    <a href="/home" class="return"><i class="bi bi-arrow-return-left"></i></a>
+    <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
     
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-5">
-        <table class="table table-striped">
+        <a class="btn btn-success" th:href="@{/servicos/new}">Novo Serviço</a>
+        <table class="table table-striped m-2">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -72,8 +73,6 @@
                 </tr>
             </tbody>
         </table>
-        <a class="btn btn-success" th:href="@{/servicos/new}">Novo Serviço</a>
-        <a href="/consultas" class="btn btn-secondary">Voltar</a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

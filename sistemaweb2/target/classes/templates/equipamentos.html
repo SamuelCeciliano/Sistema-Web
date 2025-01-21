@@ -40,13 +40,14 @@
     </header>
 
     <!-- Botão de Voltar -->
-    <a href="/home" class="return"><i class="bi bi-arrow-return-left"></i></a>
+    <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
     
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-5">
-        <table class="table table-striped">
+        <a class="btn btn-success" th:href="@{/equipamentos/new}">Novo Equipamento</a>
+        <table class="table table-striped mt-2">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -77,8 +78,6 @@
                 </tr>
             </tbody>
         </table>
-        <a class="btn btn-success" th:href="@{/equipamentos/new}">Novo Equipamento</a>
-        <a href="/consultas" class="btn btn-secondary">Voltar</a>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
