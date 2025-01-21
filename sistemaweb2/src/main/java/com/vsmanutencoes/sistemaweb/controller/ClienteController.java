@@ -37,10 +37,19 @@ public class ClienteController {
 
     // Listar todos os clientes
     @GetMapping
-    public String listarClientes(Model model, Principal principal) {
-        String username = principal.getName();
-        model.addAttribute("username", username);
-        model.addAttribute("clientes", clienteService.listarTodosClientes());
+    public String listarClientes(
+        @RequestParam(required = false) Long id,
+        @RequestParam(required = false) String nome,
+        @RequestParam(required = false) String cnpjCpf,
+        @RequestParam(required = false) String empresa,
+        Model model
+    ) {
+        // Caso todos os filtros sejam nulos, traga todos os clientes
+        if (id == null && nome == null && cnpjCpf == null && empresa == null) {
+            model.addAttribute("clientes", clienteService.listarTodos());
+        } else {
+            model.addAttribute("clientes", clienteService.filtrarClientes(id, nome, cnpjCpf, empresa));
+        }
         return "clientes";
     }
 

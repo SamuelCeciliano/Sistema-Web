@@ -43,5 +43,11 @@ public class ClienteService {
             cliente.setAtivo(false);
             clienteRepositorio.save(cliente);
         }
-    }    
+    }  
+    
+    public List<Cliente> filtrarClientes(Long id, String nome, String cnpjCpf, String empresa) {
+        return clienteRepositorio.filtrarClientes(id, nome, cnpjCpf, empresa);
+    }
+    
+    
 }
