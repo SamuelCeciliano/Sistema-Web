@@ -16,7 +16,6 @@
 
 <body>
 	<header>
-		<!-- Cabeçalho -->
 		<div class="header d-flex justify-content-between align-items-center">
 			<a href="/home">
 				<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
@@ -37,34 +36,38 @@
 		</div>
 	</header>
 
-	<!--Imagem do fundo-->
 	<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
 	<div class="container mt-5">
-		<!-- Formulário de Filtro -->
 		<form method="get" action="/clientes" class="row g-3 mb-4">
 			<div class="col-md-2">
 				<label for="id" class="form-label">ID</label>
-				<input type="number" class="form-control" id="id" name="id" placeholder="ID">
+				<input type="number" class="form-control" id="id" name="id" 
+				       th:value="${param.id}" placeholder="ID">
 			</div>
 			<div class="col-md-3">
 				<label for="nome" class="form-label">Nome</label>
-				<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+				<input type="text" class="form-control" id="nome" name="nome" 
+				       th:value="${param.nome}" placeholder="Nome">
 			</div>
 			<div class="col-md-3">
 				<label for="cnpjCpf" class="form-label">CNPJ/CPF</label>
-				<input type="text" class="form-control" id="cnpjCpf" name="cnpjCpf" placeholder="CNPJ/CPF">
+				<input type="text" class="form-control" id="cnpjCpf" name="cnpjCpf" 
+				       th:value="${param.cnpjCpf}" placeholder="CNPJ/CPF">
 			</div>
 			<div class="col-md-3">
 				<label for="empresa" class="form-label">Empresa</label>
-				<input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa">
+				<input type="text" class="form-control" id="empresa" name="empresa" 
+				       th:value="${param.empresa}" placeholder="Empresa">
 			</div>
 			<div class="col-md-1 d-flex align-items-end">
 				<button type="submit" class="btn btn-primary w-100">Filtrar</button>
 			</div>
+			<div class="col-md-1 d-flex align-items-end">
+				<a href="/clientes" class="btn btn-secondary w-100">Limpar</a>
+			</div>
 		</form>
 
-		<!-- Tabela de Clientes -->
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<thead>
@@ -126,12 +129,12 @@
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
-						[csrfHeader]: csrfToken // Adiciona o token CSRF no cabeçalho
+						[csrfHeader]: csrfToken
 					}
 				})
 					.then(response => {
 						if (response.ok) {
-							location.reload(); // Atualiza a página
+							location.reload();
 						} else {
 							alert('Erro ao alterar o status do cliente.');
 						}
