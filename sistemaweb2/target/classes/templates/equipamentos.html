@@ -46,8 +46,33 @@
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-5">
+        <form th:action="@{/equipamentos}" method="get" class="d-flex mb-3">
+            <div class="me-2">
+                <label for="id" class="form-label">ID</label>
+                <input type="number" name="id" id="id" class="form-control" placeholder="Digite o ID" th:value="${param.id}">
+            </div>
+            <div class="me-2">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite o Nome" th:value="${param.nome}">
+            </div>
+            <div class="me-2">
+                <label for="modelo" class="form-label">Modelo</label>
+                <input type="text" name="modelo" id="modelo" class="form-control" placeholder="Digite o Modelo" th:value="${param.modelo}">
+            </div>
+            <div class="me-2">
+                <label for="marca" class="form-label">Marca</label>
+                <input type="text" name="marca" id="marca" class="form-control" placeholder="Digite a Marca" th:value="${param.marca}">
+            </div>
+            <div class="align-self-end">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+				<a href="/equipamentos" class="btn btn-secondary w-100">Limpar</a>
+			</div>
+        </form>
+
         <a class="btn btn-success" th:href="@{/equipamentos/new}">Novo Equipamento</a>
-        <table class="table table-striped mt-2">
+        <table class="table table-striped m-2">
             <thead>
                 <tr>
                     <th>ID</th>

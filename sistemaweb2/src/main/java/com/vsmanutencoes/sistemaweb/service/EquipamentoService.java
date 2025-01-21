@@ -55,4 +55,8 @@ public class EquipamentoService {
             throw new RuntimeException("Equipamento não encontrado com o ID: " + id);
         }
     }
+
+    public List<Equipamento> filtrarEquipamentos(Long id, String nome, String modelo, String marca) {
+        return equipamentoRepositorio.filtrarEquipamentos(id, nome, modelo, marca);
+    }
 }
