@@ -1,5 +1,6 @@
 package com.vsmanutencoes.sistemaweb.controller;
 
+
 import java.security.Principal;
 import java.util.Optional;
 
@@ -42,8 +43,11 @@ public class ClienteController {
         @RequestParam(required = false) String nome,
         @RequestParam(required = false) String cnpjCpf,
         @RequestParam(required = false) String empresa,
-        Model model
+        Model model, Principal principal
     ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
+
         // Caso todos os filtros sejam nulos, traga todos os clientes
         if (id == null && nome == null && cnpjCpf == null && empresa == null) {
             model.addAttribute("clientes", clienteService.listarTodos());
