@@ -1,12 +1,10 @@
 package com.vsmanutencoes.sistemaweb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailService {
@@ -14,21 +12,18 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void enviarEmail(String destinatario, String assunto, String mensagem) throws MessagingException {
+    public String enviarEmail(String destinatario, String assunto, String mensagem) {
         try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+            SimpleMailMessage email = new SimpleMailMessage();
+            email.setTo(destinatario);
+            email.setSubject(assunto);
+            email.setText(mensagem);
+            email.setFrom("albasques@gmail.com");
 
-            helper.setTo(destinatario);
-            helper.setSubject(assunto);
-            helper.setText(mensagem, true); // True para indicar que é HTML
-
-            System.out.println("Tentando enviar e-mail para: " + destinatario);
-            mailSender.send(mimeMessage);
-            System.out.println("E-mail enviado com sucesso!");
-        } catch (MessagingException e) {
-            System.err.println("Erro ao enviar e-mail: " + e.getMessage());
-            throw new MessagingException("Erro ao enviar e-mail", e);
+            mailSender.send(email);
+            return "E-mail enviado com sucesso para " + destinatario;
+        } catch (MailException e) {
+            return "Erro ao enviar e-mail: " + e.getMessage();
         }
     }
 }

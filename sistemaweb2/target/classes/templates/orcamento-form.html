@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <script src="/js/orcamento.js"></script>
     <header>
         <!-- Cabeçalho -->
         <div class="header d-flex justify-content-between align-items-center">
@@ -78,7 +79,7 @@
                 <input id="valorTotal" type="number" th:field="*{valorTotal}" class="form-control" required
                     step="0.01" />
             </div>
-            <button type="submit" class="btn btn-success">Salvar</button>
+            <button id="enviarEmailBtn" class="btn btn-success">Salvar e Enviar E-mail</button>
             <a th:href="@{/orcamentos}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>

@@ -11,6 +11,7 @@ import jakarta.mail.MessagingException;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -84,21 +85,27 @@ public class OrcamentoController {
         return "redirect:/orcamentos?success=true";
     }
 
-    // Método para envio de e-mail
-    private void enviarEmailOrcamento(Orcamento orcamento) throws MessagingException {
-        String destinatario = orcamento.getCliente().getEmail();
-        String assunto = "Novo Orçamento Criado";
-        String mensagem = "<h1>Detalhes do Orçamento</h1>" +
-                        "<p>Olá, " + orcamento.getCliente().getNome() + ",</p>" +
-                        "<p>Seu orçamento foi criado com sucesso.</p>" +
-                        "<p><strong>Status:</strong> " + orcamento.getStatus() + "</p>" +
-                        "<p><strong>Descrição:</strong> " + orcamento.getDescricao() + "</p>" +
-                        "<p><strong>Valor Total:</strong> R$ " + orcamento.getValorTotal() + "</p>" +
-                        "<p>Obrigado por escolher nossos serviços.</p>";
-
-        emailService.enviarEmail(destinatario, assunto, mensagem);
-    }
-
+        // Método para envio de e-mail com confirmação
+        @PostMapping("/orcamento/enviar-email")
+        @ResponseBody
+        public String enviarEmailOrcamento(@RequestBody Orcamento orcamento) {
+            try {
+                emailService.enviarEmail(
+                    orcamento.getCliente().getEmail(),
+                    "Novo Orçamento Criado",
+                    "Detalhes do Orçamento:\n\n" +
+                    "Olá " + orcamento.getCliente().getNome() + "\n" +
+                    "Seu orçamento foi criado com sucesso." + "\n\n" +
+                    "Status: " + orcamento.getStatus() + "\n" +
+                    "Descrição: " + orcamento.getDescricao() + "\n" +
+                    "Valor Total: R$ " + orcamento.getValorTotal() + "\n\n"+
+                    "Obrigado por escolher nossos serviços."
+                );
+                return "E-mail enviado com sucesso!";
+            } catch (Exception e) {
+                return "Erro ao enviar e-mail: " + e.getMessage();
+            }
+        }
 
     @GetMapping("/edit/{id}")
     public String editarOrcamento(@PathVariable Long id, Model model) {
