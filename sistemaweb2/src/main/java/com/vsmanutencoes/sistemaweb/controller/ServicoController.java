@@ -5,6 +5,7 @@ import com.vsmanutencoes.sistemaweb.models.Servico;
 import com.vsmanutencoes.sistemaweb.service.MaterialService;
 import com.vsmanutencoes.sistemaweb.service.ServicoService;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,9 @@ public class ServicoController {
     private MaterialService materialService;
 
     @GetMapping
-    public String listarServicos(Model model) {
+    public String listarServicos(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("servicos", servicoService.listarTodosServicos());
         return "servicos";
     }

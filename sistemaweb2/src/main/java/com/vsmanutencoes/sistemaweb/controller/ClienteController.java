@@ -1,5 +1,6 @@
 package com.vsmanutencoes.sistemaweb.controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,9 @@ public class ClienteController {
 
     // Listar todos os clientes
     @GetMapping
-    public String listarClientes(Model model) {
+    public String listarClientes(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("clientes", clienteService.listarTodosClientes());
         return "clientes";
     }

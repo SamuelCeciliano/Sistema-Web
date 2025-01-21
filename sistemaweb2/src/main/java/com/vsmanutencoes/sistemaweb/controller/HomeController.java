@@ -25,7 +25,9 @@ public class HomeController {
     }
 
     @GetMapping("/consultas")
-    public String consultas() {
+    public String consultas(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         return "consultas"; 
     }
 }

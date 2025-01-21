@@ -10,13 +10,9 @@ import com.vsmanutencoes.sistemaweb.service.SolicitacaoOrcamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,7 +31,9 @@ public class SolicitacaoController {
     private EquipamentoService equipamentoService;
 
     @GetMapping
-    public String listarSolicitacoes(Model model) {
+    public String listarSolicitacoes(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("solicitacoes", solicitacaoOrcamentoService.listarTodasSolicitacoes());
         return "solicitacoes";
     }

@@ -8,6 +8,7 @@ import com.vsmanutencoes.sistemaweb.service.OrcamentoService;
 
 import jakarta.mail.MessagingException;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,9 @@ public class OrcamentoController {
     private EmailService emailService;
 
     @GetMapping
-    public String listarOrcamentos(Model model) {
+    public String listarOrcamentos(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("orcamentos", orcamentoService.listarTodos());
         return "orcamentos";
     }
