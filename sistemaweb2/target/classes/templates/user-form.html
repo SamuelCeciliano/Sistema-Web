@@ -37,7 +37,7 @@
             </div>
         </div>
     </header>
-    
+
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
@@ -62,8 +62,12 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="role" class="form-label">Função</label>
-                    <input type="text" id="role" th:field="*{role}" class="form-control" placeholder="Função"
-                        required />
+                    <select id="role" th:field="*{role}" class="form-control" required>
+                        <option value="" disabled selected>Selecione a função</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Funcionário">Funcionário</option>
+                        <option value="Atendente">Atendente</option>
+                    </select>
                 </div>
 
                 <div class="col-md-6 mb-3">

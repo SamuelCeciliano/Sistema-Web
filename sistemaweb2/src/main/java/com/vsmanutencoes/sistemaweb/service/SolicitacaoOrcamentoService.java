@@ -5,6 +5,7 @@ import com.vsmanutencoes.sistemaweb.repositories.SolicitacaoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -43,5 +44,9 @@ public class SolicitacaoOrcamentoService {
 
     public void excluirSolicitacao(Long id) {
         solicitacaoRepositorio.deleteById(id);
+    }
+
+    public List<SolicitacaoOrcamento> filtrarSolicitacoes(String nome, String empresa, String cnpj, String equipamento, LocalDate data) {
+        return solicitacaoRepositorio.filtrarSolicitacoes(nome, empresa, cnpj, equipamento, data);
     }
 }

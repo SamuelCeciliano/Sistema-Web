@@ -46,6 +46,26 @@
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-5">
+        <!-- Formulário de Filtro -->
+        <form th:action="@{/servicos}" method="get" class="d-flex mb-3">
+            <div class="me-2">
+                <label for="id" class="form-label">ID</label>
+                <input type="number" name="id" id="id" class="form-control" placeholder="Digite o ID" 
+                    th:value="${param.id}">
+            </div>
+            <div class="me-2">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite o Nome" 
+                    th:value="${param.nome}">
+            </div>
+            <div class="align-self-end">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+				<a href="/servicos" class="btn btn-secondary w-100">Limpar</a>
+			</div>
+        </form>
+
         <a class="btn btn-success" th:href="@{/servicos/new}">Novo Serviço</a>
         <table class="table table-striped m-2">
             <thead>

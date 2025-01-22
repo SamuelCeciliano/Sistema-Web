@@ -59,7 +59,10 @@ public class ClienteController {
 
     // Exibir formulário de novo cliente
     @GetMapping("/new")
-    public String novoClienteForm(Model model) {
+    public String novoClienteForm(Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("cliente", new Cliente());
         return "cliente-form";
     }
@@ -73,7 +76,10 @@ public class ClienteController {
 
     // Exibir formulário de edição de cliente
     @GetMapping("/edit/{id}")
-    public String editarClienteForm(@PathVariable("id") Long id, Model model) {
+    public String editarClienteForm(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         Cliente cliente = clienteService.buscarClientePorId(id);
         model.addAttribute("cliente", cliente);
         return "cliente-form";
@@ -81,7 +87,10 @@ public class ClienteController {
 
     // Excluir cliente
     @GetMapping("/delete/{id}")
-    public String excluirCliente(@PathVariable("id") Long id) {
+    public String excluirCliente(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         clienteService.inativarCliente(id);
         return "redirect:/clientes";
     }

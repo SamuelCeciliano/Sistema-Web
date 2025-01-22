@@ -29,15 +29,28 @@ public class ServicoController {
     private MaterialService materialService;
 
     @GetMapping
-    public String listarServicos(Model model, Principal principal) {
+    public String listarServicos(
+        @RequestParam(required = false) Long id,
+        @RequestParam(required = false) String nome,
+        Model model, Principal principal
+    ) {
         String username = principal.getName();
         model.addAttribute("username", username);
-        model.addAttribute("servicos", servicoService.listarTodosServicos());
+
+        // Caso todos os filtros sejam nulos, traga todos os serviços
+        if (id == null && nome == null) {
+            model.addAttribute("servicos", servicoService.listarTodosServicos());
+        } else {
+            model.addAttribute("servicos", servicoService.filtrarServicos(id, nome));
+        }
         return "servicos";
     }
 
     @GetMapping("/new")
-    public String novoServicoForm(Model model) {
+    public String novoServicoForm(Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("servico", new Servico());
         model.addAttribute("materiais", materialService.listarTodosMateriais());
         return "servico-form";
@@ -55,7 +68,10 @@ public class ServicoController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editarServicoForm(@PathVariable("id") Long id, Model model) {
+    public String editarServicoForm(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
     	Servico servico = servicoService.buscarServicoPorId(id);
     	model.addAttribute("servico", servico);
     	model.addAttribute("materiais", materialService.listarTodosMateriais());
@@ -63,7 +79,10 @@ public class ServicoController {
     }
 
     @GetMapping("/delete/{id}")
-    public String excluirServico(@PathVariable("id") Long id) {
+    public String excluirServico(@PathVariable("id") Long id, Model model, Principal principal
+    ) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         servicoService.excluirServico(id);
         return "redirect:/servicos";
     }

@@ -47,6 +47,30 @@
 
     <div class="container mt-5">
 
+        <form method="get" action="/solicitacoes" class="row g-3">
+            <div class="col-md-2">
+                <input type="text" name="nome" class="form-control" placeholder="Nome do Cliente" th:value="${param.nome}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="empresa" class="form-control" placeholder="Empresa" th:value="${param.empresa}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="cnpj" class="form-control" placeholder="CNPJ" th:value="${param.cnpj}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="equipamento" class="form-control" placeholder="Equipamento" th:value="${param.equipamento}">
+            </div>
+            <div class="col-md-2">
+                <input type="date" name="data" class="form-control" th:value="${param.data}">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+				<a href="/solicitacoes" class="btn btn-secondary w-100">Limpar</a>
+			</div>
+        </form>
+
         <div>
             <a href="/solicitacoes/new" class="btn btn-primary">Nova Solicitação</a>
         </div>
