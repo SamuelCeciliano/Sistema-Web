@@ -34,6 +34,7 @@ public class UsersService {
             Users usuarioAtualizado = usuarioExistente.get();
             usuarioAtualizado.setPassword(passwordEncoder.encode(usuario.getPassword())); // Criptografa a senha
             usuarioAtualizado.setAtivo(usuario.isAtivo()); // Atualiza o status 'ativo'
+            usuarioAtualizado.setRole(usuario.getRole());
             return usersRepositorio.save(usuarioAtualizado);  // Salva as alterações
         } else {
             // Caso o usuário não exista, cria um novo usuário
@@ -65,10 +66,10 @@ public class UsersService {
         Users usuario = buscarUsuarioPorId(id);
         usuario.setUsername(usuarioAtualizado.getUsername());
         usuario.setPassword(usuarioAtualizado.getPassword());
-        usuario.setAtivo(usuarioAtualizado.isAtivo());  // Atualiza o status do usuário com o valor recebido
-        return usersRepositorio.save(usuario);  // Salva o usuário atualizado
+        usuario.setAtivo(usuarioAtualizado.isAtivo());
+        usuario.setRole(usuarioAtualizado.getRole()); // Atualiza o cargo
+        return usersRepositorio.save(usuario);
     }
-
 
     // Método para buscar um usuário pelo ID
     public Users buscarUsuarioPorId(Long id) {
