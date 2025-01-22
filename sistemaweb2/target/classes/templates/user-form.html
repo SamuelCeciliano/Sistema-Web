@@ -60,14 +60,17 @@
                         required />
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label for="role" class="form-label">Função</label>
-                    <select id="role" th:field="*{role}" class="form-control" required>
-                        <option value="" disabled selected>Selecione a função</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Funcionário">Funcionário</option>
-                        <option value="Atendente">Atendente</option>
-                    </select>
+                <div class="col-md-6 mb-3 position-relative">
+                    <label for="role" class="form-label">Cargo</label>
+                    <div class="dropdown-container">
+                        <select id="role" th:field="*{role}" class="form-control" required>
+                            <option value="" disabled selected>Selecione a função</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Funcionário">Funcionário</option>
+                            <option value="Atendente">Atendente</option>
+                        </select>
+                        <span class="dropdown-icon">&#x276F;</span>
+                    </div>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -87,7 +90,18 @@
         </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js">
+        const selectElement = document.getElementById('role');
+        const dropdownIcon = document.querySelector('.dropdown-icon');
+
+        selectElement.addEventListener('focus', () => {
+            dropdownIcon.style.transform = 'translateY(-50%) rotate(-90deg)';
+        });
+
+        selectElement.addEventListener('blur', () => {
+            dropdownIcon.style.transform = 'translateY(-50%) rotate(90deg)';
+        });
+    </script>
 </body>
 
 </html>

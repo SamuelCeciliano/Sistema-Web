@@ -1,0 +1,18 @@
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    pointer-events: none; /* Para que o clique passe para o select */
+    transition: transform 0.3s ease;
+    font-size: 1.2em;
+}
+
+select:focus + .dropdown-icon,
+select:active + .dropdown-icon {
+    transform: translateY(-50%) rotate(-90deg);
+}
