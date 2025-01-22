@@ -2,79 +2,90 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Lista de Materiais</title>
-	<link rel="stylesheet" href="/css/all.css">
-	<link rel="stylesheet" href="/css/materiais.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <meta charset="UTF-8">
+    <title>Lista de Materiais</title>
+    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/servicos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-	<header>
-		<!-- Cabeçalho -->
-		<div class="header d-flex justify-content-between align-items-center">
-
-			<a href="/home">
-				<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
-			</a>
-
-			<h2 class="titulo">Materiais</h2>
-
-			<div class="user-actions">
-
+    <header>
+        <div class="header d-flex justify-content-between align-items-center">
+            <a href="/home">
+                <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
+            </a>
+            <h2 class="titulo">Materiais</h2>
+            <div class="user-actions">
 				<div class="username"><span th:text="${username}"></span></div>
-
 				<a href="/logout">
 					<i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
-
 					<div class="logout-text">
 						<span>Logout</span>
 						<i class="fas fa-arrow-left"></i>
 					</div>
 				</a>
 			</div>
-		</div>
-	</header>
+        </div>
+    </header>
 
-	<!--Imagem do fundo-->
-	<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+    <!-- Botão de Voltar -->
+    <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
 
-	<div class="container mt-5">
-		<div class="table-responsive">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Nome</th>
-						<th>Marca</th>
-						<th>Modelo</th>
-						<th>Ações</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="material : ${materiais}">
-						<td th:text="${material.id}"></td>
-						<td th:text="${material.nome}"></td>
-						<td th:text="${material.marca}"></td>
-						<td th:text="${material.modelo}"></td>
-						<td>
-							<a class="btn btn-warning btn-sm"
-								th:href="@{/materiais/edit/{id}(id=${material.id})}">Editar</a>
-							<a class="btn btn-danger btn-sm"
-								th:href="@{/materiais/delete/{id}(id=${material.id})}">Excluir</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<a class="btn btn-success" th:href="@{/materiais/new}">Novo Material</a>
-		<a href="/consultas" class="btn btn-secondary">Voltar</a>
-	</div>
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <div class="container mt-5">
+        <form class="row g-3 mb-4">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="nome" placeholder="Nome do Material"
+                    th:value="${nome}">
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="marca" placeholder="Marca"
+                    th:value="${marca}">
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="modelo" placeholder="Modelo"
+                    th:value="${modelo}">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <a th:href="@{/materiais}" class="btn btn-secondary">Limpar Filtros</a>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="material : ${materiais}">
+                        <td th:text="${material.id}"></td>
+                        <td th:text="${material.nome}"></td>
+                        <td th:text="${material.marca}"></td>
+                        <td th:text="${material.modelo}"></td>
+                        <td>
+                            <a class="btn btn-warning btn-sm"
+                               th:href="@{/materiais/edit/{id}(id=${material.id})}">Editar</a>
+                            <a class="btn btn-danger btn-sm"
+                               th:href="@{/materiais/delete/{id}(id=${material.id})}">Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a class="btn btn-success" th:href="@{/materiais/new}">Novo Material</a>
+    </div>
 </body>
 
 </html>

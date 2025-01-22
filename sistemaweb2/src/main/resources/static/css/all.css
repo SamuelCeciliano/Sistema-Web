@@ -18,7 +18,7 @@ a img.logovs-head {
 
 header {
     background-color: #DFFCFE;
-    height: 16%;
+    height: 18%;
     border-bottom: solid 2px darkblue;
 }
 
@@ -36,13 +36,19 @@ header {
     display: flex;
     align-items: center;
     margin-top: 5px;
+    font-size: 15px;
     position: absolute; 
-    right: 20px;
+    right: 30px;
+    color: rgb(149, 0, 0);
+}
+
+.logout-text:hover{
+    color: rgb(176, 0, 0);
 }
 
 .logout-text i {
     margin-left: 5px;
-    font-size: 24px; 
+    font-size: 15px; 
 }
 
 span{
@@ -70,4 +76,12 @@ span{
     left: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
+}
+
+.return{
+    position: absolute;
+    top: 18%;
+    left: 3%;
+    font-size: 35px;
+    color: darkblue;
 }

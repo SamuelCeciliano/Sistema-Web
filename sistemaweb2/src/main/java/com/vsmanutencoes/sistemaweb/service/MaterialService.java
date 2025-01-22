@@ -9,6 +9,7 @@ import com.vsmanutencoes.sistemaweb.models.Material;
 import com.vsmanutencoes.sistemaweb.repositories.MaterialRepositorio;
 
 
+
 @Service
 public class MaterialService {
 	
@@ -53,4 +54,14 @@ public class MaterialService {
         }
     }
 
+    public List<Material> buscarMateriais(String nome, String marca, String modelo) {
+        // Se todos os filtros forem nulos ou vazios, retorna todos os materiais
+        if ((nome == null || nome.isEmpty()) &&
+            (marca == null || marca.isEmpty()) &&
+            (modelo == null || modelo.isEmpty())) {
+            return materialRepositorio.findAll();
+        }
+        // Busca com filtros
+        return materialRepositorio.findByFiltros(nome, marca, modelo);
+    }
 }

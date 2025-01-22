@@ -5,6 +5,7 @@ import com.vsmanutencoes.sistemaweb.models.Servico;
 import com.vsmanutencoes.sistemaweb.service.EquipamentoService;
 import com.vsmanutencoes.sistemaweb.service.ServicoService;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,9 @@ public class EquipamentoController {
     private ServicoService servicoService;
 
     @GetMapping
-    public String listarEquipamentos(Model model) {
+    public String listarEquipamentos(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("equipamentos", equipamentoService.listarTodosEquipamentos());
         return "equipamentos";
     }

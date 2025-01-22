@@ -41,10 +41,14 @@
         </div>
     </header>
 
+    <!-- Botão de Voltar -->
+    <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
+    
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-5">
+        <a class="btn btn-success" th:href="@{/users/new}">Novo Usuário</a>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -74,8 +78,6 @@
                 </tbody>
             </table>
         </div>
-        <a class="btn btn-success" th:href="@{/users/new}">Novo Usuário</a>
-        <a href="/consultas" class="btn btn-secondary">Voltar</a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>

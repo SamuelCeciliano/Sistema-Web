@@ -12,14 +12,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 
 <body>
 	<header>
-		<!-- Cabeçalho -->
 		<div class="header d-flex justify-content-between align-items-center">
-
 			<a href="/home">
 				<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
 			</a>
@@ -27,12 +24,9 @@
 			<h2 class="titulo">Clientes</h2>
 
 			<div class="user-actions">
-
 				<div class="username"><span th:text="${username}"></span></div>
-
 				<a href="/logout">
 					<i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
-
 					<div class="logout-text">
 						<span>Logout</span>
 						<i class="fas fa-arrow-left"></i>
@@ -41,13 +35,44 @@
 			</div>
 		</div>
 	</header>
+	
+	<!-- Botão de Voltar -->
+    <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
 
-	<!--Imagem do fundo-->
 	<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
 	<div class="container mt-5">
+		<form method="get" action="/clientes" class="row g-3 mb-4">
+			<div class="col-md-2">
+				<label for="id" class="form-label">ID</label>
+				<input type="number" class="form-control" id="id" name="id" th:value="${param.id}" placeholder="ID">
+			</div>
+			<div class="col-md-3">
+				<label for="nome" class="form-label">Nome</label>
+				<input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}"
+					placeholder="Nome">
+			</div>
+			<div class="col-md-3">
+				<label for="cnpjCpf" class="form-label">CNPJ/CPF</label>
+				<input type="text" class="form-control" id="cnpjCpf" name="cnpjCpf" th:value="${param.cnpjCpf}"
+					placeholder="CNPJ/CPF">
+			</div>
+			<div class="col-md-3">
+				<label for="empresa" class="form-label">Empresa</label>
+				<input type="text" class="form-control" id="empresa" name="empresa" th:value="${param.empresa}"
+					placeholder="Empresa">
+			</div>
+			<div class="col-md-1 d-flex align-items-end">
+				<button type="submit" class="btn btn-primary w-100">Filtrar</button>
+			</div>
+			<div class="col-md-1 d-flex align-items-end">
+				<a href="/clientes" class="btn btn-secondary w-100">Limpar</a>
+			</div>
+		</form>
+
+		<a class="btn btn-success" th:href="@{/clientes/new}">Novo Cliente</a>
 		<div class="table-responsive">
-			<table class="table table-striped">
+			<table class="table table-striped m-2">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -87,14 +112,11 @@
 								th:onclick="'toggleStatus(' + ${cliente.id} + ');'"
 								th:text="${cliente.ativo} ? 'Inativar' : 'Ativar'">
 							</a>
-
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<a class="btn btn-success" th:href="@{/clientes/new}">Novo Cliente</a>
-		<a href="/consultas" class="btn btn-secondary">Voltar</a>
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
@@ -108,12 +130,12 @@
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
-						[csrfHeader]: csrfToken // Adiciona o token CSRF no cabeçalho
+						[csrfHeader]: csrfToken
 					}
 				})
 					.then(response => {
 						if (response.ok) {
-							location.reload(); // Atualiza a página
+							location.reload();
 						} else {
 							alert('Erro ao alterar o status do cliente.');
 						}

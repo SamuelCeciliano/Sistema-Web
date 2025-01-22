@@ -3,6 +3,7 @@ package com.vsmanutencoes.sistemaweb.controller;
 import com.vsmanutencoes.sistemaweb.models.Users;
 import com.vsmanutencoes.sistemaweb.service.UsersService;
 
+import java.security.Principal;
 import java.util.Optional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,9 @@ public class UsersController {
 
     // Listar todos os usuários
     @GetMapping
-    public String listarUsuarios(Model model) {
+    public String listarUsuarios(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         model.addAttribute("users", usersService.listarUsuarios());
         return "users";
     }
