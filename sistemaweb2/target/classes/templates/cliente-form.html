@@ -132,8 +132,7 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="pais" class="form-label">País</label>
-                    <input type="text" id="pais" th:field="*{pais}" class="form-control" placeholder="País"
-                        value="Brasil" required />
+                    <input type="text" id="pais" th:field="*{pais}" class="form-control" placeholder="País" required />
                 </div>
             </div>
 
@@ -223,8 +222,8 @@
                             document.getElementById("cidade").value = data.localidade || "";
                             document.getElementById("bairro").value = data.bairro || "";
                             document.getElementById("endereco").value = data.logradouro || "";
-                            document.getElementById('pais').value = "Brasil";
-
+                            document.getElementById("pais").value = data.pais || "Brasil";
+                            
                             // Adiciona classe de sucesso
                             this.classList.add("is-valid");
                         } else {

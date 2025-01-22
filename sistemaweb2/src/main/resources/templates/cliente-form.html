@@ -163,6 +163,7 @@
             const cep = cepField.value.replace(/\D/g, ""); // Remove caracteres não numéricos
 
             let isValid = true;
+            let firstInvalidField = null; // Variável para armazenar o primeiro campo inválido
 
             // Valida CPF ou CNPJ
             if (cnpjCpf.length === 11) {
@@ -170,17 +171,20 @@
                     document.getElementById("cnpjCpfError").textContent = "CPF inválido!";
                     cnpjCpfField.classList.add("is-invalid");
                     isValid = false;
+                    if (!firstInvalidField) firstInvalidField = cnpjCpfField; // Marca o primeiro campo inválido
                 }
             } else if (cnpjCpf.length === 14) {
                 if (!validarCNPJ(cnpjCpf)) {
                     document.getElementById("cnpjCpfError").textContent = "CNPJ inválido!";
                     cnpjCpfField.classList.add("is-invalid");
                     isValid = false;
+                    if (!firstInvalidField) firstInvalidField = cnpjCpfField; // Marca o primeiro campo inválido
                 }
             } else {
                 document.getElementById("cnpjCpfError").textContent = "Por favor, insira um CPF com 11 dígitos ou um CNPJ com 14 dígitos.";
                 cnpjCpfField.classList.add("is-invalid");
                 isValid = false;
+                if (!firstInvalidField) firstInvalidField = cnpjCpfField; // Marca o primeiro campo inválido
             }
 
             // Valida CEP
@@ -188,14 +192,16 @@
                 document.getElementById("cepError").textContent = "Por favor, insira um CEP válido com 8 dígitos.";
                 cepField.classList.add("is-invalid");
                 isValid = false;
+                if (!firstInvalidField) firstInvalidField = cepField; // Marca o primeiro campo inválido
             }
 
             // Cancela o envio do formulário se os campos não forem válidos
             if (!isValid) {
                 event.preventDefault();
+                // Rola a página até o primeiro campo inválido
+                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
-
 
         document.getElementById("cep").addEventListener("blur", function () {
             const cep = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
@@ -216,7 +222,8 @@
                             document.getElementById("cidade").value = data.localidade || "";
                             document.getElementById("bairro").value = data.bairro || "";
                             document.getElementById("endereco").value = data.logradouro || "";
-
+                            document.getElementById("pais").value = data.pais || "Brasil";
+                            
                             // Adiciona classe de sucesso
                             this.classList.add("is-valid");
                         } else {
