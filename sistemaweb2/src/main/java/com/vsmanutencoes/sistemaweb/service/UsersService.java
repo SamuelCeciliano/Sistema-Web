@@ -28,15 +28,18 @@ public class UsersService {
     public Users salvarUsuario(Users usuario) {
         // Verificar se o usuário já existe com o mesmo username
         Optional<Users> usuarioExistente = usersRepositorio.findByUsername(usuario.getUsername());
-        if (usuarioExistente.isPresent()) {
-            // Se o usuário já existir, não realiza a inserção
-            System.out.println("O usuário com o nome '" + usuario.getUsername() + "' já existe. A inserção foi ignorada.");
-            return null;
-        }
 
-        // Criptografa a senha antes de salvar
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        return usersRepositorio.save(usuario);
+        if (usuarioExistente.isPresent()) {
+            // Se o usuário já existir, atualiza o usuário
+            Users usuarioAtualizado = usuarioExistente.get();
+            usuarioAtualizado.setPassword(passwordEncoder.encode(usuario.getPassword())); // Criptografa a senha
+            usuarioAtualizado.setAtivo(usuario.isAtivo()); // Atualiza o status 'ativo'
+            return usersRepositorio.save(usuarioAtualizado);  // Salva as alterações
+        } else {
+            // Caso o usuário não exista, cria um novo usuário
+            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));  // Criptografa a senha
+            return usersRepositorio.save(usuario);  // Salva o novo usuário
+        }
     }
 
     // Método para garantir que o usuário admin exista
@@ -57,27 +60,30 @@ public class UsersService {
         }
     }
 
+    // Método para atualizar um usuário existente
+    public Users atualizarUsuario(Long id, Users usuarioAtualizado) {
+        Users usuario = buscarUsuarioPorId(id);
+        usuario.setUsername(usuarioAtualizado.getUsername());
+        usuario.setPassword(usuarioAtualizado.getPassword());
+        usuario.setAtivo(usuarioAtualizado.isAtivo());  // Atualiza o status do usuário com o valor recebido
+        return usersRepositorio.save(usuario);  // Salva o usuário atualizado
+    }
+
+
     // Método para buscar um usuário pelo ID
     public Users buscarUsuarioPorId(Long id) {
         return usersRepositorio.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o ID: " + id));
     }
 
-    // Método para atualizar um usuário existente
-    public Users atualizarUsuario(Long id, Users usuarioAtualizado) {
-        Users usuario = buscarUsuarioPorId(id);
-        usuario.setUsername(usuarioAtualizado.getUsername());
-        usuario.setPassword(usuarioAtualizado.getPassword());
-        return usersRepositorio.save(usuario);
-    }
-
-    // Inativar usuário
+    // Método para inativar ou ativar o status do usuário
     public void inativarUsuario(Long id) {
         Optional<Users> userOpt = usersRepositorio.findById(id);
         if (userOpt.isPresent()) {
             Users user = userOpt.get();
-            user.setAtivo(false); // Define o status como inativo
-            usersRepositorio.save(user);
+            // Alterna o status (se estiver ativo, inativa, e vice-versa)
+            user.setAtivo(!user.isAtivo());  // Alterna o valor de ativo
+            usersRepositorio.save(user);     // Salva as alterações no banco de dados
         }
     }
 

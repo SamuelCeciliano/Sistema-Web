@@ -70,13 +70,15 @@
                     </select>
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Status</label>
-                    <div class="form-check">
-                        <input type="checkbox" id="status" th:field="*{ativo}" class="form-check-input" />
-                        <label for="status" class="form-check-label">Ativo</label>
-                    </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Status</label>
+                <div class="form-check">
+                    <!-- Se o usuário estiver ativo, o checkbox deve ser marcado -->
+                    <input type="checkbox" th:field="*{ativo}" class="form-check-input" id="status" />
+                    <label class="form-check-label" for="status">Ativo</label>
                 </div>
+            </div>
+
             </div>
 
             <div class="col-12 mt-4">

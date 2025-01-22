@@ -1,6 +1,7 @@
 package com.vsmanutencoes.sistemaweb.controller;
 
 import com.vsmanutencoes.sistemaweb.models.Users;
+import com.vsmanutencoes.sistemaweb.repositories.UsersRepositorio;
 import com.vsmanutencoes.sistemaweb.service.UsersService;
 
 import java.security.Principal;
@@ -21,6 +22,9 @@ public class UsersController {
 
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private UsersRepositorio usersRepositorio;
 
     // Listar todos os usuários
     @GetMapping
@@ -69,19 +73,18 @@ public class UsersController {
         return "redirect:/users";
     }
 
-    @PostMapping("/toggleStatus/{id}")
-    public ResponseEntity<Void> toggleStatus(@PathVariable Long id, Model model, Principal principal
-    ) {
-        String username = principal.getName();
-        model.addAttribute("username", username);
-        Optional<Users> userOpt = usersService.buscarUsuarioPorIdOptional(id);
-        if (userOpt.isPresent()) {
-            Users user = userOpt.get();
-            user.setAtivo(!user.isAtivo()); // Alterna o status
-            usersService.salvarUsuario(user); // Salva a alteração
-            return ResponseEntity.ok().build();
-        }
+        @PostMapping("/toggleStatus/{id}")
+        public ResponseEntity<Void> toggleStatus(@PathVariable Long id) {
+            Optional<Users> userOpt = usersRepositorio.findById(id);
+            if (userOpt.isPresent()) {
+                Users user = userOpt.get();
+                user.setAtivo(!user.isAtivo()); // Alterna o status
+                usersRepositorio.save(user); // Salva a alteração
+                System.out.println("Cliente atualizado: " + user);
+                return ResponseEntity.ok().build();
+            }
+            System.out.println("Cliente não encontrado para o ID: " + id); // Log
         return ResponseEntity.notFound().build();
-    }
+        }
 
 }

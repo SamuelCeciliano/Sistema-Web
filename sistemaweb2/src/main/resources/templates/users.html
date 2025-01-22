@@ -16,22 +16,15 @@
 
 <body>
     <header>
-        <!-- Cabeçalho -->
         <div class="header d-flex justify-content-between align-items-center">
-
             <a href="/home">
                 <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
             </a>
-
             <h2 class="titulo">Usuários</h2>
-
             <div class="user-actions">
-
                 <div class="username"><span th:text="${username}"></span></div>
-
                 <a href="/logout">
                     <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
-
                     <div class="logout-text">
                         <span>Logout</span>
                         <i class="fas fa-arrow-left"></i>
@@ -41,10 +34,7 @@
         </div>
     </header>
 
-    <!-- Botão de Voltar -->
     <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
-    
-    <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-5">
@@ -69,9 +59,10 @@
                         </td>
                         <td>
                             <a class="btn btn-warning btn-sm" th:href="@{/users/edit/{id}(id=${user.id})}">Editar</a>
-                            <a class="btn btn-sm ms-2" th:classappend="${user.ativo} ? 'btn-danger' : 'btn-success'"
-                                th:onclick="'toggleUserStatus(' + ${user.id} + ');'"
-                                th:text="${user.ativo} ? 'Inativar' : 'Ativar'">
+                            <a class="btn btn-sm ms-2"
+                            th:classappend="${user.ativo} ? 'btn-danger' : 'btn-success'"
+                            th:attr="onclick=|toggleUserStatus(${user.id})|"
+                            th:text="${user.ativo} ? 'Inativar' : 'Ativar'">
                             </a>
                         </td>
                     </tr>
@@ -82,7 +73,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
         function toggleUserStatus(userId) {
-            // Recupera os tokens CSRF do HTML
             const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
             const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
@@ -91,12 +81,12 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        [csrfHeader]: csrfToken // Adiciona o token CSRF no cabeçalho
+                        [csrfHeader]: csrfToken
                     }
                 })
                     .then(response => {
                         if (response.ok) {
-                            location.reload(); // Recarrega a página para refletir a alteração
+                            location.reload(); // Atualiza a página
                         } else {
                             alert('Erro ao alterar o status do usuário.');
                         }

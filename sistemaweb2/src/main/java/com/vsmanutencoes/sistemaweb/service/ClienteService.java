@@ -49,5 +49,4 @@ public class ClienteService {
         return clienteRepositorio.filtrarClientes(id, nome, cnpjCpf, empresa);
     }
     
-    
 }
