@@ -19,15 +19,15 @@
             </a>
             <h2 class="titulo">Materiais</h2>
             <div class="user-actions">
-				<div class="username"><span th:text="${username}"></span></div>
-				<a href="/logout">
-					<i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
-					<div class="logout-text">
-						<span>Logout</span>
-						<i class="fas fa-arrow-left"></i>
-					</div>
-				</a>
-			</div>
+                <div class="username"><span th:text="${username}"></span></div>
+                <a href="/logout">
+                    <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
+                    <div class="logout-text">
+                        <span>Logout</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -39,16 +39,13 @@
     <div class="container mt-5">
         <form class="row g-3 mb-4">
             <div class="col-md-4">
-                <input type="text" class="form-control" name="nome" placeholder="Nome do Material"
-                    th:value="${nome}">
+                <input type="text" class="form-control" name="nome" placeholder="Nome do Material" th:value="${nome}">
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" name="marca" placeholder="Marca"
-                    th:value="${marca}">
+                <input type="text" class="form-control" name="marca" placeholder="Marca" th:value="${marca}">
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" name="modelo" placeholder="Modelo"
-                    th:value="${modelo}">
+                <input type="text" class="form-control" name="modelo" placeholder="Modelo" th:value="${modelo}">
             </div>
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
@@ -75,9 +72,9 @@
                         <td th:text="${material.modelo}"></td>
                         <td>
                             <a class="btn btn-warning btn-sm"
-                               th:href="@{/materiais/edit/{id}(id=${material.id})}">Editar</a>
-                            <a class="btn btn-danger btn-sm"
-                               th:href="@{/materiais/delete/{id}(id=${material.id})}">Excluir</a>
+                                th:href="@{/materiais/edit/{id}(id=${material.id})}">Editar</a>
+                            <a class="btn btn-danger btn-sm" th:href="@{/materiais/delete/{id}(id=${material.id})}"
+                                id="btn-delete">Excluir</a>
                         </td>
                     </tr>
                 </tbody>
@@ -87,5 +84,30 @@
         <a class="btn btn-success" th:href="@{/materiais/new}">Novo Material</a>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButton = document.getElementById('btn-delete');
+
+        deleteButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Impede o comportamento padrão do link
+
+            const url = deleteButton.getAttribute('href'); // Obtém a URL do atributo href
+
+            // Envia a requisição DELETE
+            fetch(url, { method: 'DELETE' })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Item excluído com sucesso!');
+                        location.reload(); // Atualiza a página
+                    } else {
+                        throw new Error('Não é possível excluir este registro, pois ele possui vínculos em outros registros.');
+                    }
+                })
+                .catch(error => {
+                    alert(`Ocorreu um erro: ${error.message}`);
+                });
+        });
+    });
+</script>
 
 </html>
