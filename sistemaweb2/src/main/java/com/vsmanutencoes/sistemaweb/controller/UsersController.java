@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/users")
@@ -28,12 +29,23 @@ public class UsersController {
 
     // Listar todos os usuários
     @GetMapping
-    public String listarUsuarios(Model model, Principal principal) {
-        String username = principal.getName();
-        model.addAttribute("username", username);
+    public String listarUsuarios(
+    @RequestParam(required = false) Long id,
+    @RequestParam(required = false) String nome,
+    @RequestParam(required = false) String cargo,
+    Model model, Principal principal
+    ) {
+    String username = principal.getName();
+    model.addAttribute("username", username);
+
+    // Caso todos os filtros sejam nulos, traga todos os usuários
+    if (id == null && nome == null && cargo == null) {
         model.addAttribute("users", usersService.listarUsuarios());
-        return "users";
+    } else {
+        model.addAttribute("users", usersService.filtrarUsuarios(id, nome, cargo));
     }
+    return "users";
+}
 
     // Exibir formulário de novo usuário
     @GetMapping("/new")

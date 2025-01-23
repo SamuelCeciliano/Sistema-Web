@@ -98,4 +98,8 @@ public class UsersService {
     public Optional<Users> buscarUsuarioPorIdOptional(Long id) {
         return usersRepositorio.findById(id);
     }
+
+    public List<Users> filtrarUsuarios(Long id, String nome, String cargo) {
+        return usersRepositorio.filtrarUsuarios(id, nome, cargo);
+    }    
 }

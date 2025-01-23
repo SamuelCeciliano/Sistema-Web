@@ -38,6 +38,32 @@
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-5">
+        <!-- Formulário de filtro -->
+        <form th:action="@{/users}" method="get" class="row g-3 mb-4">
+            <div class="col-md-2">
+                <label for="id" class="form-label">ID</label>
+                <input type="number" id="id" name="id" class="form-control" placeholder="ID" th:value="${param.id}">
+            </div>
+            <div class="col-md-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" th:value="${param.nome}">
+            </div>
+            <div class="col-md-3">
+                <label for="cargo" class="form-label">Cargo</label>
+                <select id="cargo" name="cargo" class="form-control" th:value="${param.cargo}">
+                    <option value="">Selecione</option>
+                    <option th:value="funcionario" th:selected="${param.cargo == 'funcionario'}">Funcionário</option>
+                    <option th:value="atendente" th:selected="${param.cargo == 'atendente'}">Atendente</option>
+                    <option th:value="admin" th:selected="${param.cargo == 'admin'}">Admin</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+                <a href="/users" class="btn btn-secondary w-100">Limpar</a>
+            </div>
+        </form>
         <a class="btn btn-success" th:href="@{/users/new}">Novo Usuário</a>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -45,6 +71,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome de Usuário</th>
+                        <th>Cargo</th>
                         <th>Status</th>
                         <th>Ações</th>
                     </tr>
@@ -53,6 +80,7 @@
                     <tr th:each="user : ${users}">
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.username}"></td>
+                        <td th:text="${user.role}"></td>
                         <td>
                             <span th:if="${user.ativo}" class="badge bg-success">Ativo</span>
                             <span th:if="${!user.ativo}" class="badge bg-danger">Inativo</span>
