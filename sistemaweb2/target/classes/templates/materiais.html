@@ -36,22 +36,35 @@
 
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-    <div class="container mt-5">
-        <form class="row g-3 mb-4">
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="nome" placeholder="Nome do Material" th:value="${nome}">
+    <div class="container mt-2">
+        <a class="btn btn-success mb-2" th:href="@{/materiais/new}"><i class="fas fa-plus-circle"></i> Novo Material</a>
+
+        <form method="get" action="/materiais" class="row g-3 mb-2">
+            <div class="col-md-2">
+                <label for="id" class="form-label">ID</label>
+                <input type="number" class="form-control" id="id" name="id" th:value="${param.id}" placeholder="ID">
             </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="marca" placeholder="Marca" th:value="${marca}">
+            <div class="col-md-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}" placeholder="Nome do Material">
             </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="modelo" placeholder="Modelo" th:value="${modelo}">
+            <div class="col-md-3">
+                <label for="modelo" class="form-label">Modelo</label>
+                <input type="text" class="form-control" id="modelo" name="modelo" th:value="${param.modelo}" placeholder="Modelo">
             </div>
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-                <a th:href="@{/materiais}" class="btn btn-secondary">Limpar Filtros</a>
+            <div class="col-md-3">
+                <label for="marca" class="form-label">Marca</label>
+                <input type="text" class="form-control" id="marca" name="marca" th:value="${param.marca}" placeholder="Marca">
             </div>
-        </form>
+            <div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
+                <button type="submit" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-filter me-2"></i> Filtrar
+                </button>
+                <a href="/materiais" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-times me-2"></i> Limpar
+                </a>
+            </div>
+        </form>        
 
         <div class="table-responsive">
             <table class="table table-striped">
@@ -80,8 +93,6 @@
                 </tbody>
             </table>
         </div>
-
-        <a class="btn btn-success" th:href="@{/materiais/new}">Novo Material</a>
     </div>
 </body>
 <script>

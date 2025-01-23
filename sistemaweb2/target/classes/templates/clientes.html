@@ -41,8 +41,11 @@
 
 	<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-	<div class="container mt-5">
-		<form method="get" action="/clientes" class="row g-3 mb-4">
+	<div class="container mt-2">
+		<a class="btn btn-success mb-2" th:href="@{/clientes/new}">
+            <i class="fas fa-plus-circle"></i> Novo Cliente
+        </a>
+		<form method="get" action="/clientes" class="row g-3 mb-3">
 			<div class="col-md-2">
 				<label for="id" class="form-label">ID</label>
 				<input type="number" class="form-control" id="id" name="id" th:value="${param.id}" placeholder="ID">
@@ -62,17 +65,17 @@
 				<input type="text" class="form-control" id="empresa" name="empresa" th:value="${param.empresa}"
 					placeholder="Empresa">
 			</div>
-			<div class="col-md-1 d-flex align-items-end">
-				<button type="submit" class="btn btn-primary w-100">Filtrar</button>
-			</div>
-			<div class="col-md-1 d-flex align-items-end">
-				<a href="/clientes" class="btn btn-secondary w-100">Limpar</a>
-			</div>
+			<div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
+				<button type="submit" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+					<i class="fas fa-filter me-2"></i> Filtrar
+				</button>
+				<a href="/clientes" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
+					<i class="fas fa-times me-2"></i> Limpar
+				</a>
+			</div>			
 		</form>
-
-		<a class="btn btn-success" th:href="@{/clientes/new}">Novo Cliente</a>
 		<div class="table-responsive">
-			<table class="table table-striped m-2">
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>ID</th>

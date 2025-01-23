@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/css/all.css">
     <link rel="stylesheet" href="/css/equipamentos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -41,37 +40,39 @@
 
     <!-- Botão de Voltar -->
     <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
-    
+
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-    <div class="container mt-5">
-        <form th:action="@{/equipamentos}" method="get" class="d-flex mb-3">
-            <div class="me-2">
+    <div class="container mt-2">
+        <a class="btn btn-success mb-2" th:href="@{/equipamentos/new}"><i class="fas fa-plus-circle"></i> Novo Equipamento</a>
+        <!-- Formulário de Filtro -->
+        <form method="get" action="/equipamentos" class="row g-3 mb-3">
+            <div class="col-md-2">
                 <label for="id" class="form-label">ID</label>
-                <input type="number" name="id" id="id" class="form-control" placeholder="Digite o ID" th:value="${param.id}">
+                <input type="number" class="form-control" id="id" name="id" th:value="${param.id}" placeholder="ID">
             </div>
-            <div class="me-2">
+            <div class="col-md-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite o Nome" th:value="${param.nome}">
+                <input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}" placeholder="Nome">
             </div>
-            <div class="me-2">
+            <div class="col-md-3">
                 <label for="modelo" class="form-label">Modelo</label>
-                <input type="text" name="modelo" id="modelo" class="form-control" placeholder="Digite o Modelo" th:value="${param.modelo}">
+                <input type="text" class="form-control" id="modelo" name="modelo" th:value="${param.modelo}" placeholder="Modelo">
             </div>
-            <div class="me-2">
+            <div class="col-md-3">
                 <label for="marca" class="form-label">Marca</label>
-                <input type="text" name="marca" id="marca" class="form-control" placeholder="Digite a Marca" th:value="${param.marca}">
+                <input type="text" class="form-control" id="marca" name="marca" th:value="${param.marca}" placeholder="Marca">
             </div>
-            <div class="align-self-end">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
+            <div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
+                <button type="submit" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-filter me-2"></i> Filtrar
+                </button>
+                <a href="/equipamentos" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-times me-2"></i> Limpar
+                </a>
             </div>
-            <div class="col-md-1 d-flex align-items-end">
-				<a href="/equipamentos" class="btn btn-secondary w-100">Limpar</a>
-			</div>
-        </form>
-
-        <a class="btn btn-success" th:href="@{/equipamentos/new}">Novo Equipamento</a>
+        </form>        
         <table class="table table-striped m-2">
             <thead>
                 <tr>

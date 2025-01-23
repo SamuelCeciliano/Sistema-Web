@@ -45,29 +45,29 @@
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-    <div class="container mt-5">
+    <div class="container mt-2">
+        <a class="btn btn-success mb-2" th:href="@{/servicos/new}"><i class="fas fa-plus-circle"></i> Novo Serviço</a>
         <!-- Formulário de Filtro -->
-        <form th:action="@{/servicos}" method="get" class="d-flex mb-3">
-            <div class="me-2">
+        <form method="get" action="/servicos" class="row g-3 mb-3">
+            <div class="col-md-2">
                 <label for="id" class="form-label">ID</label>
-                <input type="number" name="id" id="id" class="form-control" placeholder="Digite o ID" 
-                    th:value="${param.id}">
+                <input type="number" class="form-control" id="id" name="id" th:value="${param.id}" placeholder="Digite o ID">
             </div>
-            <div class="me-2">
+            <div class="col-md-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite o Nome" 
-                    th:value="${param.nome}">
+                <input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}" placeholder="Digite o Nome">
             </div>
-            <div class="align-self-end">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
+            <div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
+                <button type="submit" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-filter me-2"></i> Filtrar
+                </button>
+                <a href="/servicos" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-times me-2"></i> Limpar
+                </a>
             </div>
-            <div class="col-md-1 d-flex align-items-end">
-				<a href="/servicos" class="btn btn-secondary w-100">Limpar</a>
-			</div>
-        </form>
+        </form>        
 
-        <a class="btn btn-success" th:href="@{/servicos/new}">Novo Serviço</a>
-        <table class="table table-striped m-2">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>

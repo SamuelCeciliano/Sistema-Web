@@ -37,16 +37,19 @@
     <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-    <div class="container mt-5">
+    <div class="container mt-2">
+        <a class="btn btn-success mb-4" th:href="@{/users/new}"><i class="fas fa-plus-circle"></i> Novo Usuário</a>
+
         <!-- Formulário de filtro -->
-        <form th:action="@{/users}" method="get" class="row g-3 mb-4">
+        <form th:action="@{/users}" method="get" class="row g-3 mb-3">
             <div class="col-md-2">
                 <label for="id" class="form-label">ID</label>
                 <input type="number" id="id" name="id" class="form-control" placeholder="ID" th:value="${param.id}">
             </div>
             <div class="col-md-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" th:value="${param.nome}">
+                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome"
+                    th:value="${param.nome}">
             </div>
             <div class="col-md-3">
                 <label for="cargo" class="form-label">Cargo</label>
@@ -57,14 +60,17 @@
                     <option th:value="admin" th:selected="${param.cargo == 'admin'}">Admin</option>
                 </select>
             </div>
-            <div class="col-md-3 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
-            </div>
-            <div class="col-md-1 d-flex align-items-end">
-                <a href="/users" class="btn btn-secondary w-100">Limpar</a>
+            <div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
+                <button type="submit"
+                    class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-filter me-2"></i> Filtrar
+                </button>
+                <a href="/users" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-times me-2"></i> Limpar
+                </a>
             </div>
         </form>
-        <a class="btn btn-success" th:href="@{/users/new}">Novo Usuário</a>
+
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -87,10 +93,9 @@
                         </td>
                         <td>
                             <a class="btn btn-warning btn-sm" th:href="@{/users/edit/{id}(id=${user.id})}">Editar</a>
-                            <a class="btn btn-sm ms-2"
-                            th:classappend="${user.ativo} ? 'btn-danger' : 'btn-success'"
-                            th:attr="onclick=|toggleUserStatus(${user.id})|"
-                            th:text="${user.ativo} ? 'Inativar' : 'Ativar'">
+                            <a class="btn btn-sm ms-2" th:classappend="${user.ativo} ? 'btn-danger' : 'btn-success'"
+                                th:attr="onclick=|toggleUserStatus(${user.id})|"
+                                th:text="${user.ativo} ? 'Inativar' : 'Ativar'">
                             </a>
                         </td>
                     </tr>
