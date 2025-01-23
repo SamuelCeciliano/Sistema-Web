@@ -41,7 +41,7 @@
 
     <!-- Botão de Voltar -->
     <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
-    
+
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
@@ -51,21 +51,24 @@
         <form method="get" action="/servicos" class="row g-3 mb-3">
             <div class="col-md-2">
                 <label for="id" class="form-label">ID</label>
-                <input type="number" class="form-control" id="id" name="id" th:value="${param.id}" placeholder="Digite o ID">
+                <input type="number" class="form-control" id="id" name="id" th:value="${param.id}"
+                    placeholder="Digite o ID">
             </div>
             <div class="col-md-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}" placeholder="Digite o Nome">
+                <input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}"
+                    placeholder="Digite o Nome">
             </div>
             <div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
-                <button type="submit" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                <button type="submit"
+                    class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
                     <i class="fas fa-filter me-2"></i> Filtrar
                 </button>
                 <a href="/servicos" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
                     <i class="fas fa-times me-2"></i> Limpar
                 </a>
             </div>
-        </form>        
+        </form>
 
         <table class="table table-striped">
             <thead>
@@ -88,7 +91,7 @@
                     <td>
                         <a class="btn btn-warning btn-sm" th:href="@{/servicos/edit/{id}(id=${servico.id})}">Editar</a>
                         <a class="btn btn-danger btn-sm"
-                            th:href="@{/servicos/delete/{id}(id=${servico.id})}">Excluir</a>
+                            th:href="@{/servicos/delete/{id}(id=${servico.id})}" id="btn-delete">Excluir</a>
                     </td>
                 </tr>
             </tbody>
@@ -96,6 +99,31 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButton = document.getElementById('btn-delete');
+
+            deleteButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Impede o comportamento padrão do link
+
+                const url = deleteButton.getAttribute('href'); // Obtém a URL do atributo href
+
+                // Envia a requisição DELETE
+                fetch(url, { method: 'DELETE' })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Item excluído com sucesso!');
+                            location.reload(); // Atualiza a página
+                        } else {
+                            throw new Error('Não é possível excluir este registro, pois ele possui vínculos em outros registros.');
+                        }
+                    })
+                    .catch(error => {
+                        alert(`Ocorreu um erro: ${error.message}`);
+                    });
+            });
+        });
+    </script>
 </body>
 
 </html>
