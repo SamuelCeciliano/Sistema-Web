@@ -29,6 +29,8 @@ public class Orcamento {
 
     private BigDecimal valorTotal;
 
+    private Integer valorHoraMes;
+
     private LocalDateTime dataCriacao;
     
     @OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -100,5 +102,13 @@ public class Orcamento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Integer getvalorHoraMes() {
+        return valorHoraMes;
+    }
+
+    public void setvalorHoraMes(Integer valorHoraMes) {
+        this.valorHoraMes = valorHoraMes;
     }
 }

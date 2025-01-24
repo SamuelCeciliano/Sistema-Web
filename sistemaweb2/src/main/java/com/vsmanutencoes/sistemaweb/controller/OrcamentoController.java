@@ -67,6 +67,7 @@ public class OrcamentoController {
                     existente.setStatus(orcamento.getStatus());
                     existente.setValorTotal(orcamento.getValorTotal());
                     existente.setDescricao(orcamento.getDescricao()); // Atualiza a descrição
+                    existente.setvalorHoraMes(orcamento.getvalorHoraMes()); // Atualiza o campo de horas
                     orcamentoService.salvarOrcamento(existente);
                 } else {
                     throw new IllegalArgumentException("Orçamento com ID " + orcamento.getId() + " não encontrado.");
