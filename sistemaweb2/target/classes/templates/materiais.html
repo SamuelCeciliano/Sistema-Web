@@ -46,25 +46,29 @@
             </div>
             <div class="col-md-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}" placeholder="Nome do Material">
+                <input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}"
+                    placeholder="Nome do Material">
             </div>
             <div class="col-md-3">
                 <label for="modelo" class="form-label">Modelo</label>
-                <input type="text" class="form-control" id="modelo" name="modelo" th:value="${param.modelo}" placeholder="Modelo">
+                <input type="text" class="form-control" id="modelo" name="modelo" th:value="${param.modelo}"
+                    placeholder="Modelo">
             </div>
             <div class="col-md-3">
                 <label for="marca" class="form-label">Marca</label>
-                <input type="text" class="form-control" id="marca" name="marca" th:value="${param.marca}" placeholder="Marca">
+                <input type="text" class="form-control" id="marca" name="marca" th:value="${param.marca}"
+                    placeholder="Marca">
             </div>
             <div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
-                <button type="submit" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                <button type="submit"
+                    class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
                     <i class="fas fa-filter me-2"></i> Filtrar
                 </button>
                 <a href="/materiais" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
                     <i class="fas fa-times me-2"></i> Limpar
                 </a>
             </div>
-        </form>        
+        </form>
 
         <div class="table-responsive">
             <table class="table table-striped">
@@ -86,8 +90,8 @@
                         <td>
                             <a class="btn btn-warning btn-sm"
                                 th:href="@{/materiais/edit/{id}(id=${material.id})}">Editar</a>
-                            <a class="btn btn-danger btn-sm" th:href="@{/materiais/delete/{id}(id=${material.id})}"
-                                id="btn-delete">Excluir</a>
+                            <a class="btn btn-danger btn-sm"
+                                th:href="@{/materiais/delete/{id}(id=${material.id})}">Excluir</a>
                         </td>
                     </tr>
                 </tbody>
@@ -95,30 +99,4 @@
         </div>
     </div>
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const deleteButton = document.getElementById('btn-delete');
-
-        deleteButton.addEventListener('click', function (event) {
-            event.preventDefault(); // Impede o comportamento padrão do link
-
-            const url = deleteButton.getAttribute('href'); // Obtém a URL do atributo href
-
-            // Envia a requisição DELETE
-            fetch(url, { method: 'DELETE' })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Item excluído com sucesso!');
-                        location.reload(); // Atualiza a página
-                    } else {
-                        throw new Error('Não é possível excluir este registro, pois ele possui vínculos em outros registros.');
-                    }
-                })
-                .catch(error => {
-                    alert(`Ocorreu um erro: ${error.message}`);
-                });
-        });
-    });
-</script>
-
 </html>

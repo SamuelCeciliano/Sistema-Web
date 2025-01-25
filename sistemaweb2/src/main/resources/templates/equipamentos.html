@@ -99,7 +99,7 @@
                         <a class="btn btn-warning btn-sm"
                             th:href="@{/equipamentos/edit/{id}(id=${equipamento.id})}">Editar</a>
                         <a class="btn btn-danger btn-sm"
-                            th:href="@{/equipamentos/delete/{id}(id=${equipamento.id})}" id="btn-delete">Excluir</a>
+                            th:href="@{/equipamentos/delete/{id}(id=${equipamento.id})}">Excluir</a>
                     </td>
                 </tr>
             </tbody>
@@ -107,31 +107,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const deleteButton = document.getElementById('btn-delete');
-
-            deleteButton.addEventListener('click', function (event) {
-                event.preventDefault(); // Impede o comportamento padrão do link
-
-                const url = deleteButton.getAttribute('href'); // Obtém a URL do atributo href
-
-                // Envia a requisição DELETE
-                fetch(url, { method: 'DELETE' })
-                    .then(response => {
-                        if (response.ok) {
-                            alert('Item excluído com sucesso!');
-                            location.reload(); // Atualiza a página
-                        } else {
-                            throw new Error('Não é possível excluir este registro, pois ele possui vínculos em outros registros.');
-                        }
-                    })
-                    .catch(error => {
-                        alert(`Ocorreu um erro: ${error.message}`);
-                    });
-            });
-        });
-    </script>
 </body>
 
 </html>
