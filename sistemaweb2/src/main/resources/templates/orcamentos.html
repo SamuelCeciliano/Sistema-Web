@@ -36,7 +36,13 @@
                     </div>
                 </a>
             </div>
+
+            <div class="horasMes titulo">
+                <span class="textHora">Valor da hora no mês: </span>
+                <span class="valorHora">60 R$</span>
+            </div>
         </div>
+
     </header>
 
     <!-- Botão de Voltar -->
@@ -46,7 +52,35 @@
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-2">
-        <a class="btn btn-success mb-4" th:href="@{/orcamentos/new}"><i class="fas fa-plus-circle"></i> Novo Orçamento</a>
+        <a class="btn btn-success mb-4" th:href="@{/orcamentos/new}"><i class="fas fa-plus-circle"></i> Novo
+            Orçamento</a>
+
+        <div class="container mt-2">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5><span id="valorHora"></span></h5>
+                <button class="btn btn-primary" onclick="mostrarModal()">Alterar Valor Hora</button>
+            </div>
+
+            <!-- Modal para Alteração -->
+            <div id="modalAlterarValor" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alterar Valor da Hora</h5>
+                            <button type="button" class="btn-close" onclick="fecharModal()"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="novoValor">Novo Valor (R$):</label>
+                            <input type="number" id="novoValor" class="form-control" placeholder="Digite o novo valor">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+                            <button type="button" class="btn btn-success" onclick="atualizarValor()">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <table class="table table-bordered">
             <thead>
@@ -75,7 +109,75 @@
             </tbody>
         </table>
     </div>
-    <h5>pei</h5>
 </body>
+<script>
+    function mostrarModal() {
+        document.getElementById("modalAlterarValor").style.display = "block";
+    }
+
+    function fecharModal() {
+        document.getElementById("modalAlterarValor").style.display = "none";
+    }
+
+    function atualizarValor() {
+        const novoValor = document.getElementById("novoValor").value;
+        if (novoValor) {
+            // Envia o valor para o back-end usando fetch (exemplo)
+            fetch('/atualizar-valor-hora', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ valorHora: novoValor })
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById("valorHora").textContent = `${novoValor} R$`;
+                    fecharModal();
+                } else {
+                    alert("Erro ao atualizar o valor.");
+                }
+            }).catch(error => {
+                console.error("Erro:", error);
+                alert("Erro ao conectar com o servidor.");
+            });
+        } else {
+            alert("Por favor, insira um valor válido.");
+        }
+    }
+
+    function atualizarValor() {
+        const novoValor = document.getElementById("novoValor").value;
+
+        // Obtenha o token CSRF da página (Spring o insere automaticamente em páginas renderizadas)
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        if (novoValor) {
+            fetch('/orcamentos/atualizar-valor-hora', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    [csrfHeader]: csrfToken // Inclua o token CSRF no cabeçalho
+                },
+                body: JSON.stringify({ valorHora: novoValor })
+            }).then(response => {
+                if (response.ok) {
+                    response.text().then(message => {
+                        alert(message);
+                        document.getElementById("valorHora").textContent = `${novoValor} R$`;
+                        fecharModal();
+                    });
+                } else {
+                    response.text().then(error => {
+                        alert(`Erro: ${error}`);
+                    });
+                }
+            }).catch(error => {
+                console.error("Erro:", error);
+                alert("Erro ao conectar com o servidor.");
+            });
+        } else {
+            alert("Por favor, insira um valor válido.");
+        }
+    }
+</script>
 
 </html>
