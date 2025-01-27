@@ -1,6 +1,11 @@
 {
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "SistemawebApplication",
+            "request": "launch",
+            "mainClass": "com.vsmanutencoes.sistemaweb.SistemawebApplication"
+        },
         {
             "type": "java",
             "name": "Spring Boot-SistemawebApplication<sistemaweb>",
